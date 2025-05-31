@@ -1,0 +1,130 @@
+<div class="modal-header">
+  <h5 class="modal-title">Product Update</h5>
+  <button type="button" class="btn-close" aria-hidden="true" (click)="closeProductUpdateModal()"></button>
+</div>
+<div class="modal-body p-0">
+  <div class="row px-2">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <div class="profile-container position-relative mb-2">
+        <!-- Cover Photo -->
+        <div class="cover-photo-container">
+          <img src="assets/images/cover-bg2.jpg" alt="Cover Photo"
+               class="img-fluid w-100 cover-photo"
+               style="height: 100px; object-fit: cover; border-radius: 8px 8px 0 0;">
+        </div>
+
+        <!-- Profile Picture and Product Info -->
+        <div class="profile-picture-container d-flex align-items-end" style="gap: 15px; padding-left: 20px;">
+          <!-- Profile Picture -->
+          <img src="assets/images/noimage-lrg.jpg" alt="Profile Picture"
+               class="img-fluid profile-picture rounded-circle border border-3 border-white"
+               style="width: 80px; height: 80px; object-fit: cover;">
+
+          <!-- Product Info -->
+          <div class="product-info w-80">
+            <h5 class="mb-1 fw-bold">නිෂ්පාදනයේ සිංහල නම</h5>
+            <h5 class="mb-1 fw-bold">Product Name</h5>
+            <div class="d-flex gap-3 text-muted small">
+              <span>Code: PRD-001</span>
+              <span>Cost Code: BEJ</span>
+              <span>Cost: {{ 250 | number : '1.2-2' }}</span>
+              <span>Stock: {{ 10 | number : '1.2-2' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row px-4 mb-2">
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+      <div class="form-group">
+        <label class="font-size-12 mb-0">Is Free Product</label>
+        <label class="switch mt-2 mb-0">
+          <input type="checkbox">
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row px-4 mb-0">
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+      <div class="form-group mb-1">
+        <label class="font-size-12 mb-0">Product Name</label>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-sm fs-6 fw-bold" placeholder="Enter product name" aria-label="Product Name">
+          <button class="btn btn-outline-secondary" type="button"><i class="fas fa-edit"></i></button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="font-size-12 mb-0">Product Sale Type</label>
+        <ng-select class="text-start fw-bold" placeholder="Sale Type" aria-label="Sale Type" [clearable]="false">
+          <ng-option [value]="1">Retail</ng-option>
+          <ng-option [value]="2">Wholesale</ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+      <div class="form-group">
+        <label class="font-size-12 mb-0">Employee Name</label>
+        <div class="input-group">
+          <ng-select [tabIndex]="4" class="form-control" placeholder="Search for employee..." aria-label="Search for employee..." aria-describedby="input-employee">
+            <ng-option *ngFor="let employee of employees" [value]="employee.id">
+              <div class="row px-2">
+                <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2">
+                  <img src="assets/images/users/avatar-1.jpg" alt="Customer Image" class="img-fluid rounded-circle" style="width: 30px; height: 30px;">
+                </div>
+                <div class="col-sm-6 col-md-10 col-lg-10 col-xl-10 d-grid">
+                  <span class="text-truncate">({{ employee.code }}) {{ employee.name }}</span>
+                </div>
+              </div>
+            </ng-option>
+          </ng-select>
+          <button class="btn btn-secondary w-50x" type="button" id="input-employee"><i class=" fas fa-user-plus"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row px-4 mb-2">
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+      <div class="form-group mb-1">
+        <label class="font-size-12 mb-0">Product Price</label>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="0.00" aria-label="Price" aria-describedby="price">
+          <button class="btn btn-outline-secondary" type="button"><i class="fas fa-edit"></i></button>
+          <button class="btn btn-md btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="font-size-12 mb-0">Product UOM</label>
+        <ng-select class="text-start fw-bold" placeholder="UOM" aria-label="UOM" [clearable]="false">
+          <ng-option [value]="1">Kg</ng-option>
+          <ng-option [value]="2">G</ng-option>
+        </ng-select>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+      <div class="form-group mb-1">
+        <label class="font-size-12 mb-0">Product Discount (%)</label>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="0.00" aria-label="Discount" aria-describedby="discount">
+          <span class="input-group-text">%</span>
+          <button class="btn btn-md btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="font-size-12 mb-0">Product QTY</label>
+        <div class="input-group">
+          <button class="btn btn-md btn-outline-secondary" type="button"><i class="fas fa-minus"></i></button>
+          <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="0.00" aria-label="Quantity" aria-describedby="quantity">
+          <button class="btn btn-md btn-outline-secondary" type="button"><i class="fas fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="d-flex justify-content-between gap-1">
+    <button class="btn btn-outline-success"><i class="fas fa-check"></i> Save</button>
+    <button class="btn btn-outline-secondary" (click)="closeProductUpdateModal()"><i class="fas fa-times"></i> Close</button>
+  </div>
+</div>

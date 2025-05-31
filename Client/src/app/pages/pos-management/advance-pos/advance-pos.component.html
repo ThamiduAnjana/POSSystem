@@ -1,0 +1,500 @@
+<div class="row">
+  <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9">
+    <div class="card p-2 mb-0">
+      <div class="d-flex justify-content-between">
+        <div class="d-flex gap-1">
+          <button class="btn btn-secondary"><i class="fas fa-star"></i> New</button>
+          <button class="btn btn-outline-warning"><i class="fas fa-shopping-cart"></i> Hold</button>
+        </div>
+        <div class="d-flex gap-2">
+          <div class="d-flex justify-content-between gap-3 align-self-center button-type ms-4">
+            <div class="form-check mb-0 min-h-0 invoice">
+              <input type="radio" name="formRadios" class="form-check-input" value="invoice" id="invoice-btn" checked>
+              <label for="invoice-btn" class="form-check-label"> Invoice </label>
+            </div>
+            <div class="form-check mb-0 min-h-0 transfer">
+              <input type="radio" name="formRadios" class="form-check-input" value="transfer" id="transfer-btn">
+              <label for="transfer-btn" class="form-check-label"> Transfer </label>
+            </div>
+            <div class="form-check mb-0 min-h-0 return">
+              <input type="radio" name="formRadios" class="form-check-input" value="return" id="return-btn">
+              <label for="return-btn" class="form-check-label"> Return </label>
+            </div>
+            <div class="form-check mb-0 min-h-0 grn">
+              <input type="radio" name="formRadios" class="form-check-input" value="grn" id="grn-btn">
+              <label for="grn-btn" class="form-check-label"> GRN </label>
+            </div>
+            <div class="form-check mb-0 min-h-0 grn-return">
+              <input type="radio" name="formRadios" class="form-check-input" value="grn-return" id="grn-return-btn">
+              <label for="grn-return-btn" class="form-check-label"> GRN Return </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-start gap-1 mt-2">
+        <ng-container *ngFor="let item of holding">
+          <button class="btn btn-sm btn-outline-warning">{{ item.name }}</button>
+        </ng-container>
+      </div>
+    </div>
+    <div class="card custom-bg p-2 mb-0 mt-1">
+      <div class="row px-2 pt-1">
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+          <div class="input-group">
+            <span class="input-group-text" id="invoice-prefix">{{ invoicePrefix }}</span>
+            <input [tabIndex]="1" type="text" class="form-control" placeholder="Search for invoice..." aria-label="Search for invoice..." aria-describedby="search-invoice">
+            <button class="btn btn-secondary w-50x" type="button" id="search-invoice"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+          <div class="input-group">
+            <span class="input-group-text" id="return-prefix">{{ returnPrefix }}</span>
+            <input [tabIndex]="2" type="text" class="form-control" placeholder="Search for return..." aria-label="Search for return..." aria-describedby="search-return">
+            <button class="btn btn-secondary w-50x" type="button" id="search-return"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+          <div class="input-group">
+            <ng-select [tabIndex]="3" class="form-control" placeholder="Search for customer..." aria-label="Search for customer..." aria-describedby="input-customer">
+              <ng-option *ngFor="let customer of customers" [value]="customer.id">
+                <div class="row px-2">
+                  <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 m-auto">
+                    <img src="assets/images/users/avatar-1.jpg" alt="Customer Image" class="img-fluid rounded-circle" style="width: 25px; height: 25px;">
+                  </div>
+                  <div class="col-sm-6 col-md-10 col-lg-10 col-xl-10 d-grid">
+                    <span class="text-truncate">({{ customer.code }}) {{ customer.name }}</span>
+                    <span class="p-0 m-0 text-truncate font-size-10">{{ customer.mobile }}</span>
+                  </div>
+                </div>
+              </ng-option>
+            </ng-select>
+            <button class="btn btn-secondary w-50x" type="button" id="input-customer"><i class=" fas fa-user-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="row px-2">
+        <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+          <div class="input-group">
+            <ng-select [tabIndex]="4" class="form-control" placeholder="Search for employee..." aria-label="Search for employee..." aria-describedby="input-employee">
+              <ng-option *ngFor="let employee of employees" [value]="employee.id">
+                <div class="row px-2">
+                  <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2">
+                    <img src="assets/images/users/avatar-1.jpg" alt="Customer Image" class="img-fluid rounded-circle" style="width: 30px; height: 30px;">
+                  </div>
+                  <div class="col-sm-6 col-md-10 col-lg-10 col-xl-10 d-grid">
+                    <span class="text-truncate">({{ employee.code }}) {{ employee.name }}</span>
+                  </div>
+                </div>
+              </ng-option>
+            </ng-select>
+            <button class="btn btn-secondary w-50x" type="button" id="input-employee"><i class=" fas fa-user-plus"></i></button>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-9 col-lg-9 col-xl-9">
+          <div class="input-group">
+            <input [tabIndex]="5" type="text" class="form-control" placeholder="Search for SKU, Barcode, Name, Category..." aria-label="Search for SKU, Barcode, Name, Category..." aria-describedby="search-button">
+            <button class="btn btn-secondary w-50x" type="button" id="search-button"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="row px-2">
+        <div class="table-responsive-md custom-bg2" style="min-height: 302px;border-radius: 3px;">
+          <table class="table">
+            <thead class="sticky-sm-top sticky-table-top">
+            <tr>
+              <th class="text-start align-middle w-5">S/N</th>
+              <th class="text-start align-middle">Description</th>
+              <th class="text-center align-middle w-10">EMP. Code</th>
+              <th class="text-center align-middle w-10">Cost Code</th>
+              <th class="text-end align-middle w-10">List.P (Rs.)</th>
+              <th class="text-end align-middle w-15">Price (Rs.)</th>
+              <th class="text-end align-middle">UOM</th>
+              <th class="text-end align-middle w-15">QTY</th>
+              <th class="text-end align-middle w-10">Total (Rs.)</th>
+              <th class="text-end align-middle w-7">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="cursor-pointer">
+              <td class="text-start align-middle w-5">
+                <span class="badge bg-secondary p-2">01</span>
+              </td>
+              <td class="text-start align-middle">
+                <div class="row ps-3">
+                  <label class="m-0 p-0 font-size-10">123456</label>
+                  <label class="m-0 p-0 fs-6"><i class="fas fa-tags text-danger"></i> {{ 'Product Name' | sliceText }}</label>
+                </div>
+              </td>
+              <td class="text-center align-middle w-10">EMP-1</td>
+              <td class="text-center align-middle w-10">BJJ</td>
+              <td class="text-end align-middle w-10">{{ 250 | number : '1.2-2' }}</td>
+              <td class="text-end align-middle w-15">
+                <div class="input-group">
+                  <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="0.00" aria-label="Price" aria-describedby="price">
+                  <button class="btn btn-md btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+                </div>
+              </td>
+              <td class="text-end align-middle">
+                <ng-select class="text-center fw-bold" placeholder="UOM" aria-label="UOM" [clearable]="false">
+                  <ng-option [value]="1">Kg</ng-option>
+                  <ng-option [value]="2">G</ng-option>
+                </ng-select>
+              </td>
+              <td class="text-end align-middle w-15">
+                <div class="input-group">
+                  <button class="btn btn-md btn-outline-secondary" type="button"><i class="fas fa-minus"></i></button>
+                  <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="0.00" aria-label="Quantity" aria-describedby="quantity">
+                  <button class="btn btn-md btn-outline-secondary" type="button"><i class="fas fa-plus"></i></button>
+                </div>
+              </td>
+              <td class="text-end align-middle w-10">{{ 0 | number : '1.2-2' }}</td>
+              <td class="align-middle w-7">
+                <div class="input-group d-flex justify-content-end">
+                  <button class="btn btn-md btn-outline-secondary btn-sm" (click)="openProductUpdateModal(productUpdateModal)"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-md btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="cursor-pointer">
+              <td class="text-start align-middle w-5">
+                <span class="badge bg-secondary p-2">01</span>
+              </td>
+              <td class="text-start align-middle">
+                <div class="row ps-3">
+                  <label class="m-0 p-0 font-size-10">123456</label>
+                  <label class="m-0 p-0 fs-6">{{ 'Test Product Name 10kg' | sliceText }}</label>
+                </div>
+              </td>
+              <td class="text-center align-middle w-10">EMP-1</td>
+              <td class="text-center align-middle w-10">BJJ</td>
+              <td class="text-end align-middle w-10">{{ 250 | number : '1.2-2' }}</td>
+              <td class="text-end align-middle w-15">
+                <div class="input-group">
+                  <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="0.00" aria-label="Price" aria-describedby="price">
+                  <button class="btn btn-md btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+                </div>
+              </td>
+              <td class="text-end align-middle">
+                <ng-select class="text-center fw-bold" placeholder="UOM" aria-label="UOM" [clearable]="false">
+                  <ng-option [value]="1">Kg</ng-option>
+                  <ng-option [value]="2">G</ng-option>
+                </ng-select>
+              </td>
+              <td class="text-end align-middle w-15">
+                <div class="input-group">
+                  <button class="btn btn-md btn-outline-secondary" type="button"><i class="fas fa-minus"></i></button>
+                  <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="0.00" aria-label="Quantity" aria-describedby="quantity">
+                  <button class="btn btn-md btn-outline-secondary" type="button"><i class="fas fa-plus"></i></button>
+                </div>
+              </td>
+              <td class="text-end align-middle w-10">{{ 500000 | number : '1.2-2' }}</td>
+              <td class="align-middle w-7">
+                <div class="input-group d-flex justify-content-end">
+                  <button class="btn btn-md btn-outline-secondary btn-sm" (click)="openProductUpdateModal(productUpdateModal)"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-md btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card custom-bg p-2 mt-1 mb-0">
+      <div class="row px-2">
+        <div class="d-flex justify-content-start gap-1">
+          <button class="btn btn-md btn-outline-secondary"><i class="fas fa-file-invoice"></i> Last Invoice</button>
+          <button class="btn btn-md btn-outline-secondary"><i class="fas fa-file-invoice"></i> Invoices</button>
+          <button class="btn btn-md btn-outline-secondary"><i class="fas fa-book"></i> Cash Book</button>
+          <button class="btn btn-md btn-outline-secondary"><i class="fas fa-dollar-sign"></i> Opening Balance</button>
+          <button class="btn btn-md btn-outline-secondary"><i class="fas fa-recycle"></i> Product Update</button>
+          <button class="btn btn-md btn-outline-secondary" (click)="openProductsViewModal(productsViewModal)"><i class="fas fa-boxes"></i> Products</button>
+          <button class="btn btn-md btn-outline-secondary" (click)="toggleFullscreen()">
+            <i class="fas fa-compress" *ngIf="isFullscreen"></i>
+            <i class="fas fa-expand" *ngIf="!isFullscreen"></i>
+          </button>
+        </div>
+      </div>
+      <div class="row px-2">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="d-flex justify-content-end gap-1">
+            <span class="badge custom-bg-span fw-semibold my-auto w-xl py-3 font-size-14">Cus. Balance: Rs.{{ 0 | number : '1.2-2' }}</span>
+            <span class="badge custom-bg-span fw-semibold my-auto w-xl py-3 font-size-14">Cus. Saving: Rs.{{ 6000 | number : '1.2-2' }}</span>
+            <span class="badge custom-bg-span fw-semibold my-auto w-xl py-3 font-size-14">Cus. Points: <i class="fas fa-fire-alt text-danger"></i> {{ 100 | number : '1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="row px-2">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div *ngIf="newsAlerts.length > 0" class="marquee">
+            <span class="ps-2 py-2 fw-bolder main-title px-5">News</span>
+            <span class="ps-2 py-2 main-title-box"></span>
+            <span class="ps-2 py-2 main-title-box2"></span>
+            <p #marqueeContent>
+              <ng-container *ngFor="let newsAlert of newsAlerts; let i = index">
+                {{ newsAlert.title }} : {{ newsAlert.description }}
+                <span *ngIf="i < newsAlerts.length - 1" class="mx-3"> | </span>
+              </ng-container>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+    <div class="card p-2 mb-0">
+      <div class="card custom-bg px-2 py-1 mb-0">
+        <div class="d-flex justify-content-between">
+          <label class="mb-0 fs-6">No. of Items</label>
+          <label class="mb-0 fs-6">{{ 50 | number : '1.2-2' }}</label>
+        </div>
+        <hr class="my-1">
+        <div class="d-flex justify-content-between">
+          <label class="mb-0 fs-6">Sub Total</label>
+          <label class="mb-0 fs-6">Rs.{{ 50 | number : '1.2-2' }}</label>
+        </div>
+        <div class="d-flex justify-content-between">
+          <label class="mb-0 fs-6">Delivery Charges</label>
+          <label class="mb-0 fs-6">Rs.{{ 50 | number : '1.2-2' }}</label>
+        </div>
+        <div class="d-flex justify-content-between">
+          <label class="mb-0 fs-6">Service Charges</label>
+          <label class="mb-0 fs-6">Rs.{{ 50 | number : '1.2-2' }}</label>
+        </div>
+        <div class="d-flex justify-content-between">
+          <label class="mb-0 fs-6">Tax (%{{ 3 | number : '1.2-2' }})</label>
+          <label class="mb-0 fs-6">Rs.{{ 50 | number : '1.2-2' }}</label>
+        </div>
+        <div class="d-flex justify-content-between">
+          <label class="mb-0 fs-6">Discount</label>
+          <label class="mb-0 fs-6">Rs.{{ 50 | number : '1.2-2' }}</label>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between gap-4 py-2 ps-2">
+        <label class="m-auto fs-6 w-50">Coupon</label>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter coupon code" aria-label="Coupon Code">
+          <button class="btn btn-outline-success" type="button"><i class="fas fa-check"></i> Verify</button>
+          <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between gap-4 pb-2 ps-2">
+        <label class="m-auto fs-6 w-50">Discount</label>
+        <div class="input-group">
+          <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter discount" aria-label="Discount">
+          <ng-select class="text-end fw-bold w-30" placeholder="Dis.type" aria-label="Discount Type" [(ngModel)]="invoiceDiscountType" [clearable]="false">
+            <ng-option [value]="1">%</ng-option>
+            <ng-option [value]="2">Rs.</ng-option>
+          </ng-select>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between py-2 px-2">
+        <label class="fw-bold mb-0 fs-2">Total</label>
+        <label class="fw-bold mb-0 fs-2">Rs.{{ 5540 | number : '1.2-2'}}</label>
+      </div>
+      <div class="card custom-bg px-2 mb-0">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 ps-2">
+            <div class="card mb-0 cursor-pointer p-2">
+              <label class="fs-6 fw-bold cursor-pointer align-middle text-center">Cash <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+            <div class="card mb-0 cursor-pointer p-2">
+              <label class="fs-6 fw-bold cursor-pointer align-middle text-center">Card <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+            <div class="card mb-0 cursor-pointer p-2">
+              <label class="fs-6 fw-bold cursor-pointer align-middle text-center">Voucher <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 pe-2">
+            <div class="card mb-0 cursor-pointer p-2" (click)="toggleShowMore()">
+              <label *ngIf="!showMore" class="fs-6 fw-bold cursor-pointer align-middle text-center">More <i class="fa fa-caret-down"></i> <small class="shortcut-key">(F6)</small></label>
+              <label *ngIf="showMore" class="fs-6 fw-bold cursor-pointer align-middle text-center">Less <i class="fa fa-caret-up"></i> <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="showMore">
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 ps-2">
+            <div class="card mb-0 cursor-pointer p-2">
+              <label class="fs-6 fw-bold cursor-pointer align-middle text-center">Online <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+            <div class="card mb-0 cursor-pointer p-2">
+              <label class="fs-6 fw-bold cursor-pointer align-middle text-center">Cheque <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+            <div class="card mb-0 cursor-pointer p-2">
+              <label class="fs-6 fw-bold cursor-pointer align-middle text-center">Saving <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="d-flex justify-content-between gap-4 py-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Cash Received</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter cash received" aria-label="Cash Received">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="row d-none">
+          <div class="d-flex justify-content-between gap-4 py-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Card Received</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter card received" aria-label="Card Received">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between gap-4 pb-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Last 4 No.</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter last 4 no." aria-label="Last 4 No.">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="row d-none">
+          <div class="d-flex justify-content-between gap-4 py-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Voucher Code</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter voucher code" aria-label="Voucher Code">
+              <button class="btn btn-outline-success" type="button"><i class="fas fa-check"></i> Verify</button>
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between gap-4 pb-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">V. Received</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter voucher received" aria-label="Voucher Received">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="row d-none">
+          <div class="d-flex justify-content-between gap-4 py-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Online Received</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter online received" aria-label="Online Received">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between gap-4 pb-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Transaction Ref</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter transaction ref" aria-label="Transaction Ref">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="row d-none">
+          <div class="d-flex justify-content-between gap-4 py-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Cheque Received</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter cheque received" aria-label="Cheque Received">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between gap-4 pb-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Cheque No</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter cheque no" aria-label="Cheque No">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between gap-4 pb-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Cheque Date</label>
+            <div class="input-group">
+              <input class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter cheque date" aria-label="Cheque Date" ngbDatepicker #dob="ngbDatepicker" (click)="dob.toggle()">
+              <button class="btn btn-outline-light btn-icon calendar pc-date" type="button" (click)="dob.toggle()">
+                <i class="fa fa-calendar"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row d-none">
+          <div class="d-flex justify-content-between gap-4 py-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Saving Received</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter saving received" aria-label="Saving Received">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card custom-bg px-2 py-1 my-2">
+        <div class="d-flex justify-content-between">
+          <label class="mb-0 fs-6">Paid</label>
+          <label class="mb-0 fs-6">Rs.{{ 6000 | number : '1.2-2' }}</label>
+        </div>
+        <hr class="my-1">
+        <div class="d-flex justify-content-between">
+          <label class="mb-0 fs-4 fw-bold">Balance</label>
+          <label class="mb-0 fs-4 fw-bold">Rs.{{ 460 | number : '1.2-2' }}</label>
+        </div>
+      </div>
+      <div class="card mb-2 d-none">
+        <ng-template [ngTemplateOutlet]="numberPad"></ng-template>
+      </div>
+      <div class="row px-2">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <button class="btn btn-success w-100"><i class="fas fa-print"></i> Save & Print <small class="shortcut-key custom-br text-light">(F6)</small></button>
+        </div>
+      </div>
+      <div class="row px-2">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <button class="btn btn-outline-success w-100"><i class="fas fa-check"></i> Save <small class="shortcut-key custom-br">(F6)</small></button>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <button class="btn btn-outline-warning w-100"><i class="fas fa-shopping-cart"></i> Hold <small class="shortcut-key custom-br">(F6)</small></button>
+        </div>
+      </div>
+      <div class="row px-2">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <button class="btn btn-outline-secondary w-100"><i class="fas fa-file-invoice"></i> Quotation <small class="shortcut-key custom-br">(F6)</small></button>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <button class="btn btn-secondary w-100"><i class="fas fa-star"></i> New <small class="shortcut-key custom-br text-light">(F6)</small></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #numberPad>
+  <div class="row py-1 px-3">
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('7')">7</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('8')">8</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('9')">9</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('4')">4</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('5')">5</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('6')">6</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('1')">1</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('2')">2</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('3')">3</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('0')">0</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('.')">.</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('backspace')">Backspace</button></div>
+  </div>
+</ng-template>
+
+<ng-template #productsViewModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Products</h5>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="closeProductsViewModal()"></button>
+  </div>
+  <div class="modal-body">
+    <app-pos-products-view></app-pos-products-view>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeProductsViewModal()">Close</button>
+  </div>
+</ng-template>
+
+<ng-template #productUpdateModal let-modal>
+  <app-pos-products-update (closeEvent)="closeProductUpdateModal()"></app-pos-products-update>
+</ng-template>

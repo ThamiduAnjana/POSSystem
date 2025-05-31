@@ -1,0 +1,287 @@
+/* You can add global styles to this file, and also import other style files */
+
+.h-auto{ height: auto !important; }
+.w-2{ width: 2% !important; }
+.w-5{ width: 5% !important; }
+.w-7{ width: 7% !important; }
+.w-10{ width: 10% !important; }
+.w-15{ width: 15% !important; }
+.w-20{ width: 20% !important; }
+.w-25{ width: 25% !important; }
+.w-30{ width: 30% !important; }
+.w-33{ width: 33% !important; }
+.w-40{ width: 40% !important; }
+.w-50{ width: 50% !important; }
+.w-60{ width: 60% !important; }
+.w-70{ width: 70% !important; }
+.w-80{ width: 80% !important; }
+.w-87{ width: 87% !important; }
+
+.w-25x{ width: 25px !important; }
+.w-50x{ width: 50px !important; }
+
+.cursor-pointer{ cursor: pointer; }
+
+.modal-2md {
+  max-width: 650px !important;
+}
+
+.modal-2xl {
+  max-width: 1300px !important;
+}
+
+.modal-3xl {
+  max-width: 1600px !important;
+}
+
+.modal-4xl {
+  max-width: 1700px !important;
+}
+
+table thead{
+  line-height: 5px !important;
+}
+
+table thead tr th{
+  padding: 0.7rem 0 0.7rem 0 !important;
+}
+
+table tbody tr td{
+  padding: 0.2rem 0.2rem !important;
+}
+
+.table-img{width: 30px; height: 30px;}
+.img-cover{width: 100%; height: 100%; object-fit: cover}
+
+.pos-screen .footer{
+  display: none !important;
+}
+
+.navbar-header .d-flex{
+  .logo {
+    line-height: 50px !important;
+  }
+}
+
+#page-topbar {
+  z-index: 1048 !important;
+}
+
+.row > * {
+  padding: 3px !important;
+}
+
+.ng-select{
+  padding: 0 !important;
+  border: unset !important;
+}
+
+.ng-select .ng-select-container {
+  color: var(--bs-body-color) !important;
+  align-items: center;
+  background-color: var(--bs-tertiary-bg) !important;
+  border-radius: var(--bs-border-radius) !important;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  background-color: var(--bs-card-bg) !important;
+  color: var(--bs-body-color) !important;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option:hover {
+  background-color: var(--bs-border-color) !important;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+  background-color: var(--bs-border-color) !important;;
+  color: #333
+}
+
+.ng-dropdown-panel{
+  border: var(--bs-border-width) solid var(--bs-border-color) !important;
+}
+
+.ng-dropdown-panel {
+  background-color: var(--bs-body-bg) !important;
+}
+
+.ng-select.ng-select-single .ng-select-container {
+  height: 38px !important;
+}
+
+.ng-select .ng-select-container {
+  border: var(--bs-border-width) solid var(--bs-border-color) !important;
+}
+
+.ng-select.ng-select-single .ng-select-container .ng-value-container, .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value .ng-value-label{
+  margin: auto !important;
+}
+
+.input-group button{
+  border: var(--bs-border-width) solid #e9e9ef !important;
+}
+
+.custom-bg-span{
+  border: 1px solid #00ff6c;
+  background-color: #fff;
+  color: #239b56 !important;
+}
+
+//Marquee
+.marquee {
+  //box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+  //border: 1px solid rgba(0, 0, 0, .15);
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: 5px;
+  background-color: #f8f9fa;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.marquee .main-title{
+  z-index: 1;
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+.marquee .main-title-box{
+  position: absolute;
+  left: 60px;
+  height: 150%;
+  width: 16px;
+  z-index: 2;
+  background-color: #c0392b;
+  transform: rotate(-15deg);
+}
+
+.marquee .main-title-box2{
+  position: absolute;
+  left: 85px;
+  height: 150%;
+  width: 10px;
+  z-index: 2;
+  background-color: #c0392b;
+  transform: rotate(-15deg);
+}
+
+.marquee p {
+  position: absolute;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #656565;
+  margin: 0;
+  line-height: 40px;
+  white-space: nowrap; /* Prevents text from wrapping */
+  padding-right: 5px; /* Adds space after the last element */
+  animation: scroll-left var(--scroll-duration) linear infinite;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(85%);
+  }
+  100% {
+    transform: translateX(-100%); /* Scroll off the screen to the left */
+  }
+}
+//End Marquee
+
+.shortcut-key {
+  font-size: 10px;
+  color: #676666;
+  position: absolute;
+  bottom: 2px;
+  right: 5px;
+}
+
+.custom-br{
+  bottom: 5px !important;
+  right: 10px !important;
+}
+
+.custom-bg{
+  //background: #d7dbdd !important;
+  background: #ccd1d1 !important;
+}
+
+.custom-bg2{
+  background: #ccd1d1 !important;
+  table tbody tr td{
+    background: #ccd1d1 !important;
+  }
+}
+
+.product-info {
+  background: rgba(255, 255, 255, 0.4);
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+[data-bs-theme='dark']{
+  .input-group button{
+    border: var(--bs-border-width) solid #3f4140 !important;
+  }
+  .custom-bg-span{
+    border: 1px solid #239b56;
+    background-color: #373a39;
+    color: #239b56;
+  }
+  .marquee {
+    background-color: #313533;
+    .main-title{
+      background-color: #c0392b;
+    }
+    .main-title-box{
+      background-color: #ffffff;
+    }
+    .main-title-box2{
+      background-color: #ffffff;
+    }
+    p {
+      color: #bebebe;
+    }
+  }
+  .custom-bg{
+    background: unset !important;
+  }
+
+  .custom-bg2{
+    background: unset !important;
+    table tbody tr td{
+      background: unset !important;
+    }
+  }
+
+  .product-info {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .accordion-button{
+    color: unset !important;
+  }
+}
+
+/* Placeholder animation */
+.placeholder {
+  display: inline-block;
+  min-height: 1em;
+  vertical-align: middle;
+  cursor: wait;
+  background-color: currentcolor;
+  opacity: 0.5;
+}
+
+.placeholder-glow .placeholder {
+  animation: placeholder-glow 2s ease-in-out infinite;
+}
+
+@keyframes placeholder-glow {
+  50% {
+    opacity: 0.2;
+  }
+}
+

@@ -1,0 +1,122 @@
+<header id="page-topbar">
+    <div class="navbar-header">
+        <div class="d-flex">
+            <!-- LOGO -->
+            <div class="navbar-brand-box">
+                <a routerLink="/" class="logo logo-dark">
+                    <span class="logo-sm">
+                        <img src="assets/images/logo-sm.svg" alt="" height="24">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">Minia</span>
+                    </span>
+                </a>
+
+                <a routerLink="/" class="logo logo-light">
+                    <span class="logo-sm">
+                        <img src="assets/images/logo-sm.svg" alt="" height="24">
+                    </span>
+                    <span class="logo-lg">
+                        <img src="assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">Minia</span>
+                    </span>
+                </a>
+            </div>
+
+            <button type="button" class="btn btn-sm px-3 font-size-16 header-item d-lg-none" id="vertical-menu-btn" (click)="toggleMobileMenu($event)">
+                <i class="fa fa-fw fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="d-flex">
+
+            <div class="dropdown d-none d-sm-inline-block">
+                <button type="button" class="btn header-item" id="mode-setting-btn">
+                    <ng-container *ngIf="layoutMode == 'light'">
+                        <i-feather name="moon" class="icon-lg" (click)="changeMode('dark')"></i-feather>
+                    </ng-container>
+                    <ng-container *ngIf="layoutMode == 'dark'">
+                        <i-feather name="sun" class="icon-lg" (click)="changeMode('light')"></i-feather>
+                    </ng-container>
+                </button>
+            </div>
+
+
+            <div class="dropdown d-inline-block">
+                <button type="button" class="btn header-item right-bar-toggle me-2" (click)="toggleRightSidebar()">
+                    <i-feather name="settings" class="icon-lg"></i-feather>
+                </button>
+            </div>
+
+            <div class="dropdown d-inline-block" ngbDropdown>
+                <button type="button" class="btn header-item bg-light-subtle border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+                    <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
+                    <span class="d-none d-xl-inline-block ms-1 fw-medium">Shawn L.</span>
+                    <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+                    <!-- item-->
+                    <a class="dropdown-item" routerLink="/apps/profile"><i class="mdi mdi-face-profile font-size-16 align-middle me-1"></i> Profile</a>
+                    <a class="dropdown-item" routerLink="/account/lock-screen"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock screen</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="javascript: void(0);" (click)="logout()"><i class="mdi mdi-logout text-muted font-size-16 align-middle me-1"></i>Log Out</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</header>
+<div class="topnav">
+    <div class="container-fluid">
+        <nav class="navbar navbar-light navbar-expand-lg topnav-menu active">
+            <div class="collapse navbar-collapse active" id="topnav-menu-content">
+                <ul class="navbar-nav">
+                    <ng-container *ngFor="let item of menuItems">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle arrow-none" *ngIf="!item.subItems" (click)="onMenuClick($event)" href="javascript: void(0);" [routerLink]="item.link" role="button">
+                                <i-feather name="{{ item.icon }}"></i-feather>{{ item.label}} <div class="arrow-down" *ngIf="hasItems(item)"></div>
+                            </a>
+
+                            <a *ngIf="item.subItems" class="nav-link dropdown-toggle arrow-none" (click)="onMenuClick($event)" href="javascript: void(0);"  role="button">
+                                <i-feather name="{{ item.icon }}"></i-feather>
+                                {{item.label }}
+                                <div class="arrow-down"></div>
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="topnav-dashboard" *ngIf="hasItems(item)">
+                                <ng-template ngFor let-i="index" let-subitem [ngForOf]="item.subItems">
+                                    <a class="col dropdown-item side-nav-link-ref" *ngIf="!hasItems(subitem)" href="javascript: void(0);" [routerLink]="subitem.link" routerLinkActive="active">{{subitem.label}}</a>
+
+                                    <div class="dropdown" *ngIf="hasItems(subitem)">
+                                        <a class="dropdown-item dropdown-toggle" href="javascript: void(0);" (click)="onMenuClick($event)">{{ subitem.label }}
+                                            <div class="arrow-down"></div>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <ng-template ngFor let-subSubitem [ngForOf]="subitem.subItems">
+                                                <a class="dropdown-item side-nav-link-ref" *ngIf="!hasItems(subSubitem)" href="javascript: void(0);" [routerLink]="subSubitem.link" routerLinkActive="active">{{ subSubitem.label }}
+                                                    <span class="badge rounded-pill badge-soft-{{subSubitem.badge.variant}} float-end" *ngIf="subSubitem.badge">{{subSubitem.badge.text}}</span>
+                                                </a>
+                                                <div class="dropdown" *ngIf="hasItems(subSubitem)">
+
+                                                    <a class="dropdown-item dropdown-toggle" href="javascript: void(0);" (click)="onMenuClick($event)">{{ subSubitem.label }}
+                                                        <div class="arrow-down"></div>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <ng-template ngFor let-subSubSubitem [ngForOf]="subSubitem.subItems">
+                                                            <a class="dropdown-item side-nav-link-ref" href="javascript: void(0);" [routerLink]="subSubSubitem.link" routerLinkActive="active">{{ subSubSubitem.label }}
+
+                                                            </a>
+                                                        </ng-template>
+                                                    </div>
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </li>
+                    </ng-container>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,220 @@
+<div class="modal-header">
+  <h5 class="modal-title">Invoice Payments</h5>
+  <button type="button" class="btn-close" aria-hidden="true" (click)="closeInvoicePaymentsModal()"></button>
+</div>
+<div class="modal-body">
+  <div class="row px-2">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <div class="input-group">
+        <ng-select [tabIndex]="3" class="form-control" placeholder="Search for customer..." aria-label="Search for customer..." aria-describedby="input-customer">
+          <ng-option *ngFor="let customer of customers" [value]="customer.id">
+            <div class="row px-2">
+              <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 m-auto">
+                <img src="assets/images/users/avatar-1.jpg" alt="Customer Image" class="img-fluid rounded-circle" style="width: 25px; height: 25px;">
+              </div>
+              <div class="col-sm-6 col-md-10 col-lg-10 col-xl-10 d-grid">
+                <span class="text-truncate">({{ customer.code }}) {{ customer.name }}</span>
+                <span class="p-0 m-0 text-truncate font-size-10">{{ customer.mobile }}</span>
+              </div>
+            </div>
+          </ng-option>
+        </ng-select>
+        <button class="btn btn-outline-secondary" type="button" id="input-customer"><i class=" fas fa-user-plus"></i></button>
+      </div>
+    </div>
+  </div>
+  <div class="row px-2">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <div class="d-flex justify-content-between gap-1">
+        <span class="badge custom-bg-span fw-semibold my-auto w-33 py-3 font-size-14">Balance: Rs.{{ 100000 | number : '1.2-2' }}</span>
+        <span class="badge custom-bg-span fw-semibold my-auto w-33 py-3 font-size-14">Saving: Rs.{{ 6000 | number : '1.2-2' }}</span>
+        <span class="badge custom-bg-span fw-semibold my-auto w-33 py-3 font-size-14">Points: <i class="fas fa-fire-alt text-danger"></i> {{ 56 | number : '1.2-2' }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="row px-2">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <div class="d-flex justify-content-between py-2 px-2">
+        <label class="fw-bold mb-0 fs-2">Total</label>
+        <label class="fw-bold mb-0 fs-2">Rs.{{ 5540 | number : '1.2-2'}}</label>
+      </div>
+    </div>
+  </div>
+  <div class="row px-2">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <div class="card custom-bg p-2 mb-0">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 ps-2">
+            <div class="card mb-0 cursor-pointer p-2">
+              <label class="fs-6 fw-bold cursor-pointer align-middle text-center">Cash <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+            <div class="card mb-0 cursor-pointer p-2">
+              <label class="fs-6 fw-bold cursor-pointer align-middle text-center">Card <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+            <div class="card mb-0 cursor-pointer p-2">
+              <label class="fs-6 fw-bold cursor-pointer align-middle text-center">Voucher <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 pe-2">
+            <div class="card mb-0 cursor-pointer p-2" (click)="toggleShowMore()">
+              <label *ngIf="!showMore" class="fs-6 fw-bold cursor-pointer align-middle text-center">More <i class="fa fa-caret-down"></i> <small class="shortcut-key">(F6)</small></label>
+              <label *ngIf="showMore" class="fs-6 fw-bold cursor-pointer align-middle text-center">Less <i class="fa fa-caret-up"></i> <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="showMore">
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 ps-2">
+            <div class="card mb-0 cursor-pointer p-2">
+              <label class="fs-6 fw-bold cursor-pointer align-middle text-center">Online <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+            <div class="card mb-0 cursor-pointer p-2">
+              <label class="fs-6 fw-bold cursor-pointer align-middle text-center">Cheque <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3">
+            <div class="card mb-0 cursor-pointer p-2">
+              <label class="fs-6 fw-bold cursor-pointer align-middle text-center">Saving <small class="shortcut-key">(F6)</small></label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="d-flex justify-content-between gap-4 py-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Cash Received</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter cash received" aria-label="Cash Received">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="row d-none">
+          <div class="d-flex justify-content-between gap-4 py-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Card Received</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter card received" aria-label="Card Received">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between gap-4 pb-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Last 4 No.</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter last 4 no." aria-label="Last 4 No.">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="row d-none">
+          <div class="d-flex justify-content-between gap-4 py-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Voucher Code</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter voucher code" aria-label="Voucher Code">
+              <button class="btn btn-outline-success" type="button"><i class="fas fa-check"></i> Verify</button>
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between gap-4 pb-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">V. Received</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter voucher received" aria-label="Voucher Received">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="row d-none">
+          <div class="d-flex justify-content-between gap-4 py-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Online Received</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter online received" aria-label="Online Received">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between gap-4 pb-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Transaction Ref</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter transaction ref" aria-label="Transaction Ref">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="row d-none">
+          <div class="d-flex justify-content-between gap-4 py-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Cheque Received</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter cheque received" aria-label="Cheque Received">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between gap-4 pb-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Cheque No</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter cheque no" aria-label="Cheque No">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between gap-4 pb-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Cheque Date</label>
+            <div class="input-group">
+              <input class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter cheque date" aria-label="Cheque Date" ngbDatepicker #dob="ngbDatepicker" (click)="dob.toggle()">
+              <button class="btn btn-outline-light btn-icon calendar pc-date" type="button" (click)="dob.toggle()">
+                <i class="fa fa-calendar"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row d-none">
+          <div class="d-flex justify-content-between gap-4 py-2 ps-3 pe-2">
+            <label class="m-auto fs-6 w-50">Saving Received</label>
+            <div class="input-group">
+              <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter saving received" aria-label="Saving Received">
+              <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card custom-bg px-2 py-1 my-2">
+        <div class="d-flex justify-content-between">
+          <label class="mb-0 fs-6">Paid</label>
+          <label class="mb-0 fs-6">Rs.{{ 6000 | number : '1.2-2' }}</label>
+        </div>
+        <hr class="my-1">
+        <div class="d-flex justify-content-between">
+          <label class="mb-0 fs-4 fw-bold">Balance</label>
+          <label class="mb-0 fs-4 fw-bold">Rs.{{ 460 | number : '1.2-2' }}</label>
+        </div>
+      </div>
+      <div class="card mb-2 d-none">
+        <ng-template [ngTemplateOutlet]="numberPad"></ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="d-flex justify-content-between gap-1">
+    <button class="btn btn-success"><i class="fas fa-print"></i> Save & Print</button>
+    <button class="btn btn-outline-success"><i class="fas fa-check"></i> Save</button>
+    <button class="btn btn-outline-secondary" (click)="closeInvoicePaymentsModal()"><i class="fas fa-times"></i> Close</button>
+  </div>
+</div>
+
+
+<ng-template #numberPad>
+  <div class="row py-1 px-3">
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('7')">7</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('8')">8</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('9')">9</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('4')">4</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('5')">5</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('6')">6</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('1')">1</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('2')">2</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('3')">3</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('0')">0</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('.')">.</button></div>
+    <div class="col-4 p-1 m-0"><button type="button" class="btn btn-sm btn-secondary w-100 text-bold font-size-15" (click)="cashPatchNumber('backspace')">Backspace</button></div>
+  </div>
+</ng-template>
