@@ -1,0 +1,27 @@
+<div class="row px-2">
+  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for SKU, Barcode, Name, Category..." aria-label="Search for SKU, Barcode, Name, Category..." aria-describedby="search-button">
+      <button class="btn btn-outline-secondary" type="button" id="search-button"><i class="fas fa-search"></i></button>
+    </div>
+  </div>
+</div>
+<div class="row px-2 pt-2">
+  <ng-container *ngFor="let product of products; let key = index;">
+    <div class="col-sm-4 col-md-3 col-lg-2 col-xl-2">
+      <div class="card mb-0 border-dark-subtle">
+        <div class="card-img-container">
+          <img src="assets/images/noimage-lrg.png" class="card-img-top w-100" alt="Product Image" style="object-fit: fill; height: 150px;">
+          <div class="card-text-overlay">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">Price: Rs.{{ product.price | number : '1.2-2' }}</p>
+            <p class="card-text">Stock: {{ product.quantity | number : '1.2-2' }}</p>
+          </div>
+        </div>
+        <div class="card-body pt-0 pb-0 px-0 text-center">
+          <a href="#" class="btn btn-primary w-100 rounded-0"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

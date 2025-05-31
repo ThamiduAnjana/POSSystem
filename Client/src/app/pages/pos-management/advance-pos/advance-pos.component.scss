@@ -1,0 +1,131 @@
+$color-invoice: #3498db;
+$color-border-invoice: #2874a6;
+$color-shadow-invoice: rgba(26, 82, 118, 0.25);
+$color-return: #e74c3c;
+$color-border-return: #cb4335;
+$color-shadow-return: rgba(148, 49, 38, 0.25);
+$color-transfer: #28b463;
+$color-border-transfer: #239b56;
+$color-shadow-transfer: rgba(29, 131, 72, 0.25);
+$color-grn: #f1c40f;
+$color-border-grn: #d4ac0d;
+$color-shadow-grn: rgba(183, 149, 11, 0.25);
+
+.button-type {
+  label {
+    font-size: 17px;
+    font-weight: bold;
+    padding-left: 8px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .form-check-input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+
+  .form-check {
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    margin-bottom: 0;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  .invoice {
+    border: 1px solid $color-border-invoice;
+
+    label {
+      color: $color-invoice;
+    }
+
+    .form-check-input {
+      border: 1px solid $color-border-invoice;
+    }
+
+    .form-check-input:checked {
+      background-color: $color-invoice;
+      border-color: $color-border-invoice;
+      box-shadow: 0 0 0 0.25rem $color-shadow-invoice;
+    }
+  }
+
+  .return {
+    border: 1px solid $color-border-return;
+
+    label {
+      color: $color-return;
+    }
+
+    .form-check-input {
+      border: 1px solid $color-border-return;
+    }
+
+    .form-check-input:checked {
+      background-color: $color-return;
+      border-color: $color-border-return;
+      box-shadow: 0 0 0 0.25rem $color-shadow-return;
+    }
+  }
+
+  .transfer {
+    border: 1px solid $color-border-transfer;
+
+    label {
+      color: $color-transfer;
+    }
+
+    .form-check-input {
+      border: 1px solid $color-border-transfer;
+    }
+
+    .form-check-input:checked {
+      background-color: $color-transfer;
+      border-color: $color-border-transfer;
+      box-shadow: 0 0 0 0.25rem $color-shadow-transfer;
+    }
+  }
+
+  .grn {
+    border: 1px solid $color-border-grn;
+
+    label {
+      color: $color-grn;
+    }
+
+    .form-check-input {
+      border: 1px solid $color-border-grn;
+    }
+
+    .form-check-input:checked {
+      background-color: $color-grn;
+      border-color: $color-border-grn;
+      box-shadow: 0 0 0 0.25rem $color-shadow-grn;
+    }
+  }
+
+  .grn-return {
+    border: 1px solid $color-border-return;
+
+    label {
+      color: $color-return;
+    }
+
+    .form-check-input {
+      border: 1px solid $color-border-return;
+    }
+
+    .form-check-input:checked {
+      background-color: $color-return;
+      border-color: $color-border-return;
+      box-shadow: 0 0 0 0.25rem $color-shadow-return;
+    }
+  }
+}
+
+
