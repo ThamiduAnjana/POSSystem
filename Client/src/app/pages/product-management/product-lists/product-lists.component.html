@@ -75,7 +75,7 @@
             <button type="button" class="btn btn-outline-warning waves-light waves-effect" (click)="openGridSettingsModal(gridSettingsModal)"><i class="fa fa-cog"></i></button>
             <button type="button" class="btn btn-outline-dark waves-light waves-effect"><i class="fa fa-file-download"></i> Template CSV</button>
             <button type="button" class="btn btn-outline-warning waves-light waves-effect"><i class="fa fa-file-excel"></i> Import CSV</button>
-            <button class="btn btn-primary float-end"><i class="fa fa-plus"></i> Add Products</button>
+            <button type="button" class="btn btn-primary float-end" (click)="openCreateProductModal(createProductModal)"><i class="fa fa-plus"></i> Add Products</button>
           </div>
         </div>
 
@@ -178,7 +178,7 @@
                   <span *ngIf="!row.value" class="badge badge-soft-danger p-2 w-70">Inactive</span>
                 </td>
                 <td *ngIf="row.column_type == 'status'" class="align-middle" [ngClass]="row.class_list">
-                  <span class="badge p-2 w-70" style="background: {{ row.color_code }}">{{ row.value }}</span>
+                  <span class="badge p-2 w-70" [ngStyle]="{'background-color': row.color_code}">{{ row.value }}</span>
                 </td>
               </ng-container>
               <td>
@@ -219,4 +219,8 @@
 
 <ng-template #gridSettingsModal let-modal>
   <app-grid-settings [gridFrom]="gridFrom" (closeEvent)="closeGridSettingsModal()"></app-grid-settings>
+</ng-template>
+
+<ng-template #createProductModal let-modal>
+  <app-create-products [activeModal]="modal"></app-create-products>
 </ng-template>
