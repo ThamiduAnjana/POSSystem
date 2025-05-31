@@ -1,0 +1,95 @@
+<header id="page-topbar">
+  <div class="navbar-header">
+    <div class="d-flex">
+      <!-- LOGO -->
+      <div class="navbar-brand-box" [ngClass]="{ 'w-auto border-0' : !showToggleBar }">
+        <a routerLink="/" class="logo logo-dark">
+          <span class="logo-sm">
+            <img src="assets/images/logo-sm.svg" alt="" height="24">
+          </span>
+          <span class="logo-lg">
+            <img src="assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">POS<small>Cube</small></span>
+          </span>
+        </a>
+
+        <a routerLink="/" class="logo logo-light">
+          <span class="logo-sm">
+            <img src="assets/images/logo-sm.svg" alt="" height="24">
+          </span>
+          <span class="logo-lg">
+            <img src="assets/images/logo-sm.svg" alt="" height="24"> <span class="logo-txt">POS<small>Cube</small></span>
+          </span>
+        </a>
+      </div>
+
+      <button *ngIf="showToggleBar" type="button" class="btn btn-sm px-3 font-size-16 header-item" id="vertical-menu-btn" (click)="toggleMobileMenu($event)">
+        <i class="fa fa-fw fa-bars"></i>
+      </button>
+    </div>
+
+    <div class="d-flex">
+
+      <div class="dropdown d-none d-xl-block m-auto me-5">
+        <h6 class="mb-0 text-uppercase">Name</h6>
+      </div>
+
+      <div class="dropdown d-none d-xl-block">
+        <button type="button" class="btn header-item right-bar-toggle me-2 fw-bold fs-8">
+          {{ time | date: 'medium' }}
+        </button>
+      </div>
+
+      <div class="dropdown d-none d-sm-inline-block btn-group m-auto" ngbDropdown>
+        <!--        <a type="button" class="btn btn-primary btn-rounded top-btn" [routerLink]="['/pos-management/simple-pos']" routerLinkActive="active">-->
+        <a type="button" class="btn btn-primary btn-rounded top-btn" [routerLink]="['/pos-management/advance-pos']" routerLinkActive="active">
+          POS
+        </a>
+        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split btn-rounded" ngbDropdownToggle aria-haspopup="true">
+          <i class="mdi mdi-chevron-down"></i>
+          <span class="visually-hidden">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+          <a class="dropdown-item" [routerLink]="['/pos-management/simple-pos']" routerLinkActive="active">
+            <i class="fa fa-list-alt"></i> Simple POS
+          </a>
+          <a class="dropdown-item" [routerLink]="['/pos-management/advance-pos']" routerLinkActive="active">
+            <i class="fa fa-boxes"></i> Advance POS
+          </a>
+        </div>
+      </div>
+
+      <div class="dropdown d-none d-sm-inline-block">
+        <button type="button" class="btn header-item" id="mode-setting-btn">
+          <ng-container *ngIf="layoutMode == 'light'">
+            <i-feather name="moon" class="feather-grid  icon-lg" (click)="changeMode('dark')"></i-feather>
+          </ng-container>
+          <ng-container *ngIf="layoutMode == 'dark'">
+            <i-feather name="sun" class="feather-grid icon-lg" (click)="changeMode('light')"></i-feather>
+          </ng-container>
+        </button>
+      </div>
+
+      <div class="dropdown d-inline-block">
+        <button type="button" class="btn header-item right-bar-toggle me-2" (click)="toggleRightSidebar()">
+          <i-feather name="settings" class="icon-lg"></i-feather>
+        </button>
+      </div>
+
+      <div class="dropdown d-inline-block" ngbDropdown>
+        <button type="button" class="btn header-item topbar-light bg-light-subtle border-start border-end" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+          <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-1.jpg" alt="Header Avatar">
+          <span class="d-none d-xl-inline-block ms-1 fw-medium">Shawn L.</span>
+          <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>
+          <!-- item-->
+          <a class="dropdown-item" routerLink="/apps/profile"><i class="mdi mdi-face-man font-size-16 align-middle me-1"></i> Profile</a>
+          <a class="dropdown-item" routerLink="/account/lock-screen"><i class="mdi mdi-lock font-size-16 align-middle me-1"></i> Lock screen</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript: void(0);" (click)="logout()"><i class="mdi mdi-logout text-muted font-size-16 align-middle me-1"></i>Log Out</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>

@@ -1,0 +1,53 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ gridFrom.title }}</h5>
+  <button type="button" class="btn-close" aria-hidden="true" (click)="closeGridSettingsModal()"></button>
+</div>
+<div class="modal-body p-0">
+  <div class="row px-3 my-2">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <ngb-accordion #acc="ngbAccordion" activeIds="static-{{ gridSettings.id }}" [closeOthers]="true">
+        <ng-container *ngFor="let grid_view of gridSettings.grid_views; let i = index">
+          <ngb-panel id="static-{{ grid_view.id }}">
+            <ng-template ngbPanelTitle class="text-black">
+              <div class="form-group d-flex" [ngClass]="i == gridSettings.grid_views.length - 1 ? '' : 'mb-2'">
+                <label class="switch mb-0 me-2">
+                  <input type="radio" name="gridView" [checked]="grid_view.active"/>
+                  <span class="slider round"></span>
+                </label>
+                <label class="font-size-12 mb-0 align-middle">{{ grid_view.name }}</label>
+              </div>
+            </ng-template>
+            <ng-template ngbPanelContent>
+              <div class="row">
+                <ng-container *ngFor="let grid_header of grid_view.grid_headers; let i = index">
+                  <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6 px-4">
+                    <div class="form-group d-flex" [ngClass]="i == grid_view.grid_headers.length - 1 ? '' : 'mb-2'">
+                      <label class="switch mb-0 me-2">
+                        <input type="checkbox"  [checked]="grid_header.is_active"/>
+                        <span class="slider round"></span>
+                      </label>
+                      <label class="font-size-12 mb-0 align-middle">{{ grid_header.name }}</label>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 px-4 d-flex justify-content-end gap-1">
+                  <button class="btn btn-sm btn-outline-success"><i class="fas fa-check"></i> Save</button>
+                  <button class="btn btn-sm btn-outline-danger" *ngIf="i !== 0"><i class="fas fa-times"></i> Delete</button>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-panel>
+        </ng-container>
+      </ngb-accordion><!-- end accordion -->
+      <button class="btn btn-outline-primary w-100 mt-2"><i class="fas fa-plus"></i> New</button>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="d-flex justify-content-between gap-1">
+    <button class="btn btn-outline-success"><i class="fas fa-check"></i> Save</button>
+    <button class="btn btn-outline-secondary" (click)="closeGridSettingsModal()"><i class="fas fa-times"></i> Close</button>
+  </div>
+</div>

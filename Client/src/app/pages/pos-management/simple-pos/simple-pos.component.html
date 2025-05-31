@@ -1,0 +1,304 @@
+<div class="row overflow-x-hidden">
+  <div class="col-sm-12 col-md-7 col-lg-7 col-xl-7">
+    <div class="row px-2">
+      <div class="card p-2 mb-0">
+        <div class="d-flex justify-content-between">
+          <div class="d-flex gap-1">
+            <button class="btn btn-secondary"><i class="fas fa-star"></i> New</button>
+            <button class="btn btn-outline-warning"><i class="fas fa-shopping-cart"></i> Hold</button>
+          </div>
+          <div class="d-flex gap-2">
+            <div class="d-flex justify-content-between gap-3 align-self-center button-type ms-4">
+              <div class="form-check mb-0 min-h-0 invoice">
+                <input type="radio" name="formRadios" class="form-check-input" value="invoice" id="invoice-btn" checked>
+                <label for="invoice-btn" class="form-check-label"> Invoice </label>
+              </div>
+              <div class="form-check mb-0 min-h-0 transfer">
+                <input type="radio" name="formRadios" class="form-check-input" value="transfer" id="transfer-btn">
+                <label for="transfer-btn" class="form-check-label"> Transfer </label>
+              </div>
+              <div class="form-check mb-0 min-h-0 return">
+                <input type="radio" name="formRadios" class="form-check-input" value="return" id="return-btn">
+                <label for="return-btn" class="form-check-label"> Return </label>
+              </div>
+              <div class="form-check mb-0 min-h-0 grn">
+                <input type="radio" name="formRadios" class="form-check-input" value="grn" id="grn-btn">
+                <label for="return-btn" class="form-check-label"> GRN </label>
+              </div>
+              <div class="form-check mb-0 min-h-0 grn-return">
+                <input type="radio" name="formRadios" class="form-check-input" value="grn-return" id="grn-return-btn">
+                <label for="return-btn" class="form-check-label"> GRN Return </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row px-2">
+      <div class="card p-2 mb-0 overflow-y-scroll overflow-x-hidden" style="height: 470px;">
+        <app-pos-products-view></app-pos-products-view>
+      </div>
+    </div>
+    <div class="row px-2">
+      <div class="card p-2 mb-0">
+        <div class="row px-2">
+          <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="card custom-bg px-2 py-1 mb-0">
+              <div class="d-flex justify-content-between">
+                <label class="mb-0 fs-6">No. of Items</label>
+                <label class="mb-0 fs-6">{{ 50 | number : '1.2-2' }}</label>
+              </div>
+              <hr class="my-1">
+              <div class="d-flex justify-content-between">
+                <label class="mb-0 fs-6">Sub Total</label>
+                <label class="mb-0 fs-6">Rs.{{ 50 | number : '1.2-2' }}</label>
+              </div>
+              <div class="d-flex justify-content-between">
+                <label class="mb-0 fs-6">Delivery Charges</label>
+                <label class="mb-0 fs-6">Rs.{{ 50 | number : '1.2-2' }}</label>
+              </div>
+              <div class="d-flex justify-content-between">
+                <label class="mb-0 fs-6">Service Charges</label>
+                <label class="mb-0 fs-6">Rs.{{ 50 | number : '1.2-2' }}</label>
+              </div>
+              <div class="d-flex justify-content-between">
+                <label class="mb-0 fs-6">Tax (%{{ 3 | number : '1.2-2' }})</label>
+                <label class="mb-0 fs-6">Rs.{{ 50 | number : '1.2-2' }}</label>
+              </div>
+              <div class="d-flex justify-content-between">
+                <label class="mb-0 fs-6">Discount</label>
+                <label class="mb-0 fs-6">Rs.{{ 50 | number : '1.2-2' }}</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="d-flex justify-content-between gap-4 py-2 ps-2">
+              <label class="m-auto fs-6 w-50">Coupon</label>
+              <div class="input-group">
+                <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter coupon code" aria-label="Coupon Code">
+                <button class="btn btn-outline-success" type="button"><i class="fas fa-check"></i> Verify</button>
+                <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between gap-4 pb-2 ps-2">
+              <label class="m-auto fs-6 w-50">Discount</label>
+              <div class="input-group">
+                <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="Enter discount" aria-label="Discount">
+                <ng-select class="text-end fw-bold w-30" placeholder="Dis.type" aria-label="Discount Type" [(ngModel)]="invoiceDiscountType" [clearable]="false">
+                  <ng-option [value]="1">%</ng-option>
+                  <ng-option [value]="2">Rs.</ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between py-2 px-2">
+              <label class="fw-bold mb-0 fs-2">Total</label>
+              <label class="fw-bold mb-0 fs-2">Rs.{{ 5540 | number : '1.2-2'}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="row px-2">
+          <div class="d-flex justify-content-start gap-1">
+            <button class="btn btn-md btn-outline-secondary"><i class="fas fa-file-invoice"></i> Last Invoice</button>
+            <button class="btn btn-md btn-outline-secondary"><i class="fas fa-file-invoice"></i> Invoices</button>
+            <button class="btn btn-md btn-outline-secondary"><i class="fas fa-book"></i> Cash Book</button>
+            <button class="btn btn-md btn-outline-secondary"><i class="fas fa-dollar-sign"></i> Opening Balance</button>
+            <button class="btn btn-md btn-outline-secondary"><i class="fas fa-recycle"></i> Product Update</button>
+            <button class="btn btn-md btn-outline-secondary" (click)="toggleFullscreen()">
+              <i class="fas fa-compress" *ngIf="isFullscreen"></i>
+              <i class="fas fa-expand" *ngIf="!isFullscreen"></i>
+            </button>
+          </div>
+        </div>
+        <div class="row px-2">
+          <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div *ngIf="newsAlerts.length > 0" class="marquee">
+              <span class="ps-2 py-2 fw-bolder main-title px-5">News</span>
+              <span class="ps-2 py-2 main-title-box"></span>
+              <span class="ps-2 py-2 main-title-box2"></span>
+              <p #marqueeContent>
+                <ng-container *ngFor="let newsAlert of newsAlerts; let i = index">
+                  {{ newsAlert.title }} : {{ newsAlert.description }}
+                  <span *ngIf="i < newsAlerts.length - 1" class="mx-3"> | </span>
+                </ng-container>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5">
+    <div class="card p-2 mb-0">
+      <div class="d-flex justify-content-start gap-1">
+        <ng-container *ngFor="let item of holding">
+          <button class="btn btn-sm btn-outline-warning">{{ item.name }}</button>
+        </ng-container>
+      </div>
+      <div class="row px-2 pt-1">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="input-group">
+            <span class="input-group-text" id="invoice-prefix">{{ invoicePrefix }}</span>
+            <input [tabIndex]="1" type="text" class="form-control" placeholder="Search for invoice..." aria-label="Search for invoice..." aria-describedby="search-invoice">
+            <button class="btn btn-outline-secondary" type="button" id="search-invoice"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="input-group">
+            <span class="input-group-text" id="return-prefix">{{ returnPrefix }}</span>
+            <input [tabIndex]="2" type="text" class="form-control" placeholder="Search for return..." aria-label="Search for return..." aria-describedby="search-return">
+            <button class="btn btn-outline-secondary" type="button" id="search-return"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="row px-2">
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="input-group">
+            <ng-select [tabIndex]="3" class="form-control" placeholder="Search for customer..." aria-label="Search for customer..." aria-describedby="input-customer">
+              <ng-option *ngFor="let customer of customers" [value]="customer.id">
+                <div class="row px-2">
+                  <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2 m-auto">
+                    <img src="assets/images/users/avatar-1.jpg" alt="Customer Image" class="img-fluid rounded-circle" style="width: 25px; height: 25px;">
+                  </div>
+                  <div class="col-sm-6 col-md-10 col-lg-10 col-xl-10 d-grid">
+                    <span class="text-truncate">({{ customer.code }}) {{ customer.name }}</span>
+                    <span class="p-0 m-0 text-truncate font-size-10">{{ customer.mobile }}</span>
+                  </div>
+                </div>
+              </ng-option>
+            </ng-select>
+            <button class="btn btn-outline-secondary" type="button" id="input-customer"><i class=" fas fa-user-plus"></i></button>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="input-group">
+            <ng-select [tabIndex]="4" class="form-control" placeholder="Search for employee..." aria-label="Search for employee..." aria-describedby="input-employee">
+              <ng-option *ngFor="let employee of employees" [value]="employee.id">
+                <div class="row px-2">
+                  <div class="col-sm-6 col-md-2 col-lg-2 col-xl-2">
+                    <img src="assets/images/users/avatar-1.jpg" alt="Customer Image" class="img-fluid rounded-circle" style="width: 30px; height: 30px;">
+                  </div>
+                  <div class="col-sm-6 col-md-10 col-lg-10 col-xl-10 d-grid">
+                    <span class="text-truncate">({{ employee.code }}) {{ employee.name }}</span>
+                  </div>
+                </div>
+              </ng-option>
+            </ng-select>
+            <button class="btn btn-outline-secondary" type="button" id="input-employee"><i class=" fas fa-user-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="row px-2">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="input-group">
+            <input [tabIndex]="5" type="text" class="form-control" placeholder="Search for SKU, Barcode, Name, Category..." aria-label="Search for SKU, Barcode, Name, Category..." aria-describedby="search-button">
+            <button class="btn btn-outline-secondary" type="button" id="search-button"><i class="fas fa-search"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="row px-2">
+        <div class="table-responsive-md custom-bg2 overflow-x-hidden overflow-y-scroll" style="height: 520px;border-radius: 3px;">
+          <table class="table">
+            <thead class="sticky-sm-top sticky-table-top">
+            <tr>
+              <th class="text-start align-middle w-5">S/N</th>
+              <th class="text-start align-middle">Description</th>
+              <th class="text-end align-middle w-20">Price (Rs.)</th>
+              <th class="text-end align-middle w-25">QTY</th>
+              <th class="text-end align-middle w-15">Total (Rs.)</th>
+              <th class="text-end align-middle w-15">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="cursor-pointer">
+              <td class="text-start align-middle w-5">
+                <span class="badge bg-secondary p-2">01</span>
+              </td>
+              <td class="text-start align-middle">
+                <div class="row ps-3">
+                  <label class="m-0 p-0 font-size-10">123456</label>
+                  <label class="m-0 p-0 fs-6"><i class="fas fa-tags text-danger"></i> {{ 'Product Name' | sliceText: 10 }}</label>
+                </div>
+              </td>
+              <td class="text-end align-middle w-20">
+                <div class="input-group">
+                  <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="0.00" aria-label="Price" aria-describedby="price">
+                  <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+                </div>
+              </td>
+              <td class="text-end align-middle w-25">
+                <div class="input-group">
+                  <button class="btn btn-outline-secondary" type="button"><i class="fas fa-minus"></i></button>
+                  <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="0.00" aria-label="Quantity" aria-describedby="quantity">
+                  <button class="btn btn-outline-secondary" type="button"><i class="fas fa-plus"></i></button>
+                </div>
+              </td>
+              <td class="text-end align-middle w-15">{{ 500000 | number : '1.2-2' }}</td>
+              <td class="align-middle w-15">
+                <div class="input-group d-flex justify-content-end">
+                  <button class="btn btn-outline-secondary btn-sm" (click)="openProductUpdateModal(productUpdateModal)"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="cursor-pointer">
+              <td class="text-start align-middle w-5">
+                <span class="badge bg-secondary p-2">02</span>
+              </td>
+              <td class="text-start align-middle">
+                <div class="row ps-3">
+                  <label class="m-0 p-0 font-size-10">32165445</label>
+                  <label class="m-0 p-0 fs-6">{{ 'Product Name 2' | sliceText: 12 }}</label>
+                </div>
+              </td>
+              <td class="text-end align-middle w-20">
+                <div class="input-group">
+                  <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="0.00" aria-label="Price" aria-describedby="price">
+                  <button class="btn btn-outline-danger" type="button"><i class="fas fa-times"></i></button>
+                </div>
+              </td>
+              <td class="text-end align-middle w-25">
+                <div class="input-group">
+                  <button class="btn btn-outline-secondary" type="button"><i class="fas fa-minus"></i></button>
+                  <input type="text" class="form-control form-control-sm text-end fs-6 fw-bold" placeholder="0.00" aria-label="Quantity" aria-describedby="quantity">
+                  <button class="btn btn-outline-secondary" type="button"><i class="fas fa-plus"></i></button>
+                </div>
+              </td>
+              <td class="text-end align-middle w-15">{{ 500000 | number : '1.2-2' }}</td>
+              <td class="align-middle w-15">
+                <div class="input-group d-flex justify-content-end">
+                  <button class="btn btn-outline-secondary btn-sm" (click)="openProductUpdateModal(productUpdateModal)"><i class="fas fa-edit"></i></button>
+                  <button class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="row px-3">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <button class="btn btn-success w-100" (click)="openInvoicePaymentsModal(invoicePaymentsModal)"><i class="fas fa-check"></i> Pay <small class="shortcut-key custom-br text-light">(F6)</small></button>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <button class="btn btn-outline-warning w-100"><i class="fas fa-shopping-cart"></i> Hold <small class="shortcut-key custom-br">(F6)</small></button>
+      </div>
+    </div>
+    <div class="row px-3">
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <button class="btn btn-outline-secondary w-100"><i class="fas fa-file-invoice"></i> Quotation <small class="shortcut-key custom-br">(F6)</small></button>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <button class="btn btn-secondary w-100"><i class="fas fa-star"></i> New <small class="shortcut-key custom-br text-light">(F6)</small></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #invoicePaymentsModal let-modal>
+  <app-pos-invoice-payment (closeEvent)="closeInvoicePaymentsModal()"></app-pos-invoice-payment>
+</ng-template>
+
+<ng-template #productUpdateModal let-modal>
+  <app-pos-products-update (closeEvent)="closeProductUpdateModal()"></app-pos-products-update>
+</ng-template>

@@ -1,0 +1,17 @@
+<div id="layout-wrapper">
+    <!-- Top Bar -->
+    <app-topbar (mobileMenuButtonClicked)="onToggleMobileMenu()" (settingsButtonClicked)="onSettingsButtonClicked()">
+    </app-topbar>
+    <app-sidebar *ngIf="showSidebar"></app-sidebar>
+    <div [ngClass]="{ 'main-content' : showSidebar }" id="mainContent">
+        <div [ngStyle]="{'padding': !showSidebar ? '55px 10px 0 10px' : null }">
+            <div class="container-fluid" [ngClass]="{ 'px-1' : !showSidebar }">
+                <!-- content -->
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <!-- footer -->
+        <app-footer></app-footer>
+    </div>
+</div>
+<app-rightsidebar></app-rightsidebar>
