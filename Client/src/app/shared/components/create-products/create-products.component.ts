@@ -53,7 +53,7 @@ export class CreateProductsComponent implements OnInit {
       description: [''],
       skuBarcode: ['', Validators.required],
       categoryId: [null, Validators.required],
-      branchIds: [[]],
+      branchIds: [[], Validators.required],
       brandId: [null],
       rackNo: [''],
       alertQty: [0],
@@ -247,6 +247,33 @@ export class CreateProductsComponent implements OnInit {
       
       // Select the newly added brand
       this.productForm.patchValue({ brandId: newId });
+    }
+  }
+  
+  /**
+   * Opens a modal for adding a new branch
+   */
+  openAddBranchModal(): void {
+    // Temporarily store current form values to prevent loss on modal interaction
+    const currentFormValues = this.productForm.value;
+    
+    // Here you would typically open a modal dialog for adding a new branch
+    // For demonstration, we'll just add a new branch directly
+    const newBranchName = prompt('Enter new branch name:');
+    
+    if (newBranchName && newBranchName.trim() !== '') {
+      // Generate a temporary ID (in a real app, this would come from the backend)
+      const newId = Math.max(...this.branches.map(b => b.id), 0) + 1;
+      
+      // Add the new branch to the list
+      const newBranch = { id: newId, name: newBranchName.trim() };
+      this.branches = [...this.branches, newBranch];
+      
+      // Get current branch IDs and add the new one
+      const currentBranchIds = this.productForm.get('branchIds')?.value || [];
+      this.productForm.patchValue({ 
+        branchIds: [...currentBranchIds, newId] 
+      });
     }
   }
 }
