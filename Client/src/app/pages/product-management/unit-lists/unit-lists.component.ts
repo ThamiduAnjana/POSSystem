@@ -140,12 +140,12 @@ export class UnitListsComponent implements OnInit {
         },
         {
           column: 'is_active',
-          column_type: 'badge',
+          column_type: 'boolean',
           color_code: '',
           class_list: 'text-center',
           is_link: false,
           ref: null,
-          value: 'Active',
+          value: 1,
           color: 'success'
         }
       ]
