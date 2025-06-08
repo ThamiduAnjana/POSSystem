@@ -5,21 +5,22 @@ import {
   NgbModalRef,
   NgbModalOptions,
   NgbDropdown,
-  NgbDropdownMenu, NgbDropdownToggle
+  NgbDropdownMenu,
+  NgbDropdownToggle
 } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import {RouterLink} from "@angular/router";
-import {SliceTextPipe} from "../../../shared/customPipes/SliceTextPipe";
-import {PaginationTextPipe} from "../../../shared/customPipes/PaginationTextPipe";
-import {SharedModule} from "../../../shared/shared.module";
+import { RouterLink } from "@angular/router";
+import { SliceTextPipe } from "../../../shared/customPipes/SliceTextPipe";
+import { PaginationTextPipe } from "../../../shared/customPipes/PaginationTextPipe";
+import { SharedModule } from "../../../shared/shared.module";
 
 @Component({
-  selector: 'app-unit-lists',
-  templateUrl: './unit-lists.component.html',
-  styleUrls: ['./unit-lists.component.scss'],
+  selector: 'app-brand-lists',
+  templateUrl: './brand-lists.component.html',
+  styleUrls: ['./brand-lists.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -34,19 +35,19 @@ import {SharedModule} from "../../../shared/shared.module";
     SharedModule
   ]
 })
-export class UnitListsComponent implements OnInit {
+export class BrandListsComponent implements OnInit {
 
   breadCrumbItems!: Array<{}>;
   isLoading = true;
   page: number = 1;
   pageSize: number = 10;
-  totalUnits: number = 0;
+  totalBrands: number = 0;
   gridFrom: any = {
-    code: 'unit-lists',
-    title: 'Unit Lists Grid Settings',
+    code: 'brand-lists',
+    title: 'Brand Lists Grid Settings',
   };
-  modalGridSettingsRef!: any;
-  modalCreateUnitsRef!: any;
+  modalGridSettingsRef!: NgbModalRef;
+  modalCreateBrandsRef!: NgbModalRef;
 
   gridData = {
     id: 1,
@@ -56,36 +57,18 @@ export class UnitListsComponent implements OnInit {
     grid_header: [
       {
         id: 1,
-        name: 'Unit Name',
-        column: 'unit_name',
+        name: 'Brand Name',
+        column: 'brand_name',
         class_list: 'text-start',
       },
       {
         id: 2,
-        name: 'Short Name',
-        column: 'short_name',
+        name: 'Description',
+        column: 'description',
         class_list: 'text-start',
       },
       {
         id: 3,
-        name: 'Base Unit',
-        column: 'base_unit',
-        class_list: 'text-start',
-      },
-      {
-        id: 4,
-        name: 'Operator',
-        column: 'operator',
-        class_list: 'text-center',
-      },
-      {
-        id: 5,
-        name: 'Operation Value',
-        column: 'operation_value',
-        class_list: 'text-end',
-      },
-      {
-        id: 6,
         name: 'Status',
         column: 'is_active',
         class_list: 'text-center',
@@ -94,49 +77,52 @@ export class UnitListsComponent implements OnInit {
     grid_data: [
       [
         {
-          column: 'unit_name',
+          column: 'brand_name',
           column_type: 'text',
           color_code: '',
-          class_list: '',
+          class_list: 'fw-bold',
           is_link: true,
           ref: null,
-          value: 'Piece',
+          value: 'Nike',
         },
         {
-          column: 'short_name',
+          column: 'description',
           column_type: 'text',
           color_code: '',
           class_list: '',
           is_link: false,
           ref: null,
-          value: 'PCS',
+          value: 'Sportswear and equipment',
         },
         {
-          column: 'base_unit',
-          column_type: 'text',
-          color_code: '',
-          class_list: '',
-          is_link: false,
-          ref: null,
-          value: 'Yes',
-        },
-        {
-          column: 'operator',
-          column_type: 'text',
+          column: 'is_active',
+          column_type: 'boolean',
           color_code: '',
           class_list: 'text-center',
           is_link: false,
           ref: null,
-          value: 'N/A',
-        },
+          value: 1,
+          color: 'success'
+        }
+      ],
+      [
         {
-          column: 'operation_value',
+          column: 'brand_name',
           column_type: 'text',
           color_code: '',
-          class_list: 'text-end',
+          class_list: 'fw-bold',
+          is_link: true,
+          ref: null,
+          value: 'Adidas',
+        },
+        {
+          column: 'description',
+          column_type: 'text',
+          color_code: '',
+          class_list: '',
           is_link: false,
           ref: null,
-          value: '1.00',
+          value: 'Sportswear manufacturer',
         },
         {
           column: 'is_active',
@@ -160,8 +146,8 @@ export class UnitListsComponent implements OnInit {
 
   ngOnInit(): void {
     this.breadCrumbItems = [
-      {label: 'Products'},
-      {label: 'Unit Lists', active: true}
+      { label: 'Products' },
+      { label: 'Brand Lists', active: true }
     ];
     setTimeout(() => {
       this.isLoading = false;
@@ -172,35 +158,37 @@ export class UnitListsComponent implements OnInit {
     this.page = pageNumber;
   }
 
-  openGridSettingsModal(modal:any) {
-    this.modalGridSettingsRef =  this.modalService.open(modal, {size: '2md', keyboard: false, backdrop: 'static'});
+  openGridSettingsModal(modal: TemplateRef<any>) {
+    this.modalGridSettingsRef = this.modalService.open(modal, { size: 'md', keyboard: false, backdrop: 'static' });
   }
 
   closeGridSettingsModal() {
     this.modalGridSettingsRef.close();
   }
 
-  openCreateUnitsModal(modal: any) {
-    this.modalCreateUnitsRef = this.modalService.open(modal, {
-      size: 'xl',
+  openCreateBrandsModal(modal: TemplateRef<any>) {
+    this.modalCreateBrandsRef = this.modalService.open(modal, {
+      size: 'lg',
       keyboard: false,
       backdrop: 'static',
       centered: true
     });
 
     // Handle modal result when closed
-    this.modalCreateUnitsRef.result.then((result: any) => {
-      if (result) {
-        console.log('Units created:', result);
-        // Here you would typically refresh the product list or add the new product to the list
+    this.modalCreateBrandsRef.result.then(
+      (result: any) => {
+        if (result) {
+          console.log('Brand created:', result);
+          // Here you would typically refresh the brand list or add the new brand to the list
+        }
+      },
+      (reason: any) => {
+        console.log('Modal dismissed:', reason);
       }
-    }, (reason: any) => {
-      console.log('Modal dismissed:', reason);
-    });
+    );
   }
 
-  closeCreateUnitsModal() {
-    this.modalCreateUnitsRef.close();
+  closeCreateBrandsModal() {
+    this.modalCreateBrandsRef.close();
   }
-
 }

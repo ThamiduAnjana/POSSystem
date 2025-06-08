@@ -1,8 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { UnitListsComponent } from './unit-lists.component';
-import {ProductListsComponent} from "../product-lists/product-lists.component";
-
 describe('UnitListsComponent', () => {
   let component: UnitListsComponent;
   let fixture: ComponentFixture<UnitListsComponent>;
