@@ -65,9 +65,17 @@
           
           <!-- Branch -->
           <div class="col-md-4">
-            <label for="branchIds" class="form-label">Branch</label>
-            <ng-select [items]="branches" bindLabel="name" bindValue="id" [multiple]="true" placeholder="Select Branches" formControlName="branchIds">
-            </ng-select>
+            <label for="branchIds" class="form-label">Branch <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <ng-select class="form-control p-0 border-0" style="width: calc(100% - 45px);" [items]="branches" bindLabel="name" bindValue="id" [multiple]="true" placeholder="Select Branches" formControlName="branchIds">
+              </ng-select>
+              <button class="btn btn-primary" type="button" title="Add New Branch" (click)="openAddBranchModal()">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+            <div *ngIf="productForm.get('branchIds')?.invalid && productForm.get('branchIds')?.touched" class="text-danger small">
+              Please select at least one branch
+            </div>
           </div>
           
           <!-- Brand -->
@@ -132,7 +140,7 @@
                 <div *ngFor="let subUnit of subUnitDetailsControls; let i = index" [formGroupName]="i" class="row g-2 mb-2 align-items-center">
                   <div class="col-md-5">
                     <div class="input-group">
-                      <span class="input-group-text">{{ selectedMainUnit?.name || 'Main Unit' }} × 1 = </span>
+                      <span class="input-group-text">1 x {{ selectedMainUnit?.name || 'Main Unit' }} = </span>
                       <input type="number" class="form-control" formControlName="conversionRate" placeholder="Conversion Rate">
                     </div>
                   </div>
