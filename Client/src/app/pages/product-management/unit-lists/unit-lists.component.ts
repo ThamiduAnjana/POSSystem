@@ -98,7 +98,7 @@ export class UnitListsComponent implements OnInit {
           column_type: 'text',
           color_code: '',
           class_list: '',
-          is_link: false,
+          is_link: true,
           ref: null,
           value: 'Piece',
         },
