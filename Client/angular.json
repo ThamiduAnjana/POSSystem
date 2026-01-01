@@ -39,7 +39,9 @@
               "src/assets/scss/app.scss",
               "src/assets/scss/icons.scss"
             ],
-            "allowedCommonJsDependencies": []
+            "allowedCommonJsDependencies": [
+              "dropzone"
+            ]
           },
           "configurations": {
             "production": {
@@ -84,14 +86,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "minia:build"
+            "buildTarget": "minia:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "minia:build:production"
+              "buildTarget": "minia:build:production"
             },
             "development": {
-              "browserTarget": "minia:build:development"
+              "buildTarget": "minia:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -99,7 +101,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "minia:build"
+            "buildTarget": "minia:build"
           }
         },
         "test": {
