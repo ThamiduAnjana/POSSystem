@@ -83,6 +83,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "minia:build"
+          },
           "configurations": {
             "production": {
               "browserTarget": "minia:build:production"
