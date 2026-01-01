@@ -14,7 +14,8 @@ import { takeUntil } from 'rxjs/operators';
 import {RouterLink} from "@angular/router";
 import {SliceTextPipe} from "../../../shared/customPipes/SliceTextPipe";
 import {PaginationTextPipe} from "../../../shared/customPipes/PaginationTextPipe";
-import {SharedModule} from "../../../shared/shared.module";
+import { PagetitleComponent } from "../../../shared/pagetitle/pagetitle.component";
+import { GridSettingsComponent } from "../../../shared/components/grid-settings/grid-settings.component";
 
 @Component({
   selector: 'app-unit-lists',
@@ -31,7 +32,8 @@ import {SharedModule} from "../../../shared/shared.module";
     NgbDropdownToggle,
     SliceTextPipe,
     PaginationTextPipe,
-    SharedModule
+    PagetitleComponent,
+    GridSettingsComponent
   ]
 })
 export class UnitListsComponent implements OnInit {
