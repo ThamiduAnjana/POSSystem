@@ -1,1 +1,276 @@
-<p>create-products works!</p>
+<div class="modal-header">
+  <h5 class="modal-title"><i class="fa fa-plus-circle me-2"></i>Create New Product</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+</div>
+
+<div class="modal-body bg-light">
+  <form [formGroup]="productForm">
+    <!-- Product Details Section -->
+    <div class="card mb-3 shadow border-0">
+      <div class="card-header bg-light">
+        <h5 class="mb-0 fw-bold"><i class="fa fa-info-circle me-2"></i>Product Details</h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <!-- Product Name (English) -->
+          <div class="col-md-4">
+            <label for="productNameEn" class="form-label">Product Name (English) <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="productNameEn" formControlName="productNameEn" placeholder="Enter product name in English">
+            <div *ngIf="productForm.get('productNameEn')?.invalid && productForm.get('productNameEn')?.touched" class="text-danger small">
+              Product name is required
+            </div>
+          </div>
+          
+          <!-- Product Name (Sinhala) -->
+          <div class="col-md-4">
+            <label for="productNameSi" class="form-label">Product Name (Sinhala)</label>
+            <input type="text" class="form-control" id="productNameSi" formControlName="productNameSi" placeholder="Enter product name in Sinhala">
+          </div>
+          
+          <!-- Sort Name -->
+          <div class="col-md-4">
+            <label for="sortName" class="form-label">Sort Name</label>
+            <input type="text" class="form-control" id="sortName" formControlName="sortName" placeholder="Enter sort name">
+          </div>
+          
+          <!-- SKU/Barcode -->
+          <div class="col-md-4">
+            <label for="skuBarcode" class="form-label">SKU/Barcode <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="skuBarcode" formControlName="skuBarcode" placeholder="Enter SKU or barcode">
+            <div *ngIf="productForm.get('skuBarcode')?.invalid && productForm.get('skuBarcode')?.touched" class="text-danger small">
+              SKU/Barcode is required
+            </div>
+          </div>
+          
+          <!-- Description -->
+          <div class="col-md-12">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" rows="2" formControlName="description" placeholder="Enter product description"></textarea>
+          </div>
+          
+          <!-- Category -->
+          <div class="col-md-4">
+            <label for="categoryId" class="form-label">Category <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <ng-select class="form-control p-0 border-0" style="width: calc(100% - 45px);" [items]="categories" bindLabel="name" bindValue="id" placeholder="Select Category" formControlName="categoryId">
+              </ng-select>
+              <button class="btn btn-primary" type="button" title="Add New Category" (click)="openAddCategoryModal()">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+            <div *ngIf="productForm.get('categoryId')?.invalid && productForm.get('categoryId')?.touched" class="text-danger small">
+              Category is required
+            </div>
+          </div>
+          
+          <!-- Branch -->
+          <div class="col-md-4">
+            <label for="branchIds" class="form-label">Branch <span class="text-danger">*</span></label>
+            <div class="input-group">
+              <ng-select class="form-control p-0 border-0" style="width: calc(100% - 45px);" [items]="branches" bindLabel="name" bindValue="id" [multiple]="true" placeholder="Select Branches" formControlName="branchIds">
+              </ng-select>
+              <button class="btn btn-primary" type="button" title="Add New Branch" (click)="openAddBranchModal()">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+            <div *ngIf="productForm.get('branchIds')?.invalid && productForm.get('branchIds')?.touched" class="text-danger small">
+              Please select at least one branch
+            </div>
+          </div>
+          
+          <!-- Brand -->
+          <div class="col-md-4">
+            <label for="brandId" class="form-label">Brand</label>
+            <div class="input-group">
+              <ng-select class="form-control p-0 border-0" style="width: calc(100% - 45px);" [items]="brands" bindLabel="name" bindValue="id" placeholder="Select Brand" formControlName="brandId">
+              </ng-select>
+              <button class="btn btn-primary" type="button" title="Add New Brand" (click)="openAddBrandModal()">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Rack No -->
+          <div class="col-md-4">
+            <label for="rackNo" class="form-label">Rack No</label>
+            <input type="text" class="form-control" id="rackNo" formControlName="rackNo" placeholder="Enter rack number">
+          </div>
+          
+          <!-- Alert Qty -->
+          <div class="col-md-4">
+            <label for="alertQty" class="form-label">Alert Quantity</label>
+            <input type="number" class="form-control" id="alertQty" formControlName="alertQty" min="0" placeholder="Enter alert quantity">
+          </div>
+          
+          <!-- Product Image -->
+          <div class="col-md-4">
+            <label class="form-label">Product Image</label>
+            <dropzone [config]="dropzoneConfig" (success)="onUploadSuccess($event)" (error)="onUploadError($event)"></dropzone>
+            <div *ngIf="imagePreview" class="mt-2 text-center">
+              <img [src]="imagePreview" class="img-thumbnail" style="max-height: 100px;">
+              <div class="small text-muted mt-1">Product image preview</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Unit of Measure Section -->
+    <div class="card mb-3 shadow border-0">
+      <div class="card-header bg-light">
+        <h5 class="mb-0 fw-bold"><i class="fa fa-balance-scale me-2"></i>Product Unit of Measure</h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <!-- Main Unit -->
+          <div class="col-md-4">
+            <label for="mainUnitId" class="form-label">Main Unit <span class="text-danger">*</span></label>
+            <ng-select [items]="units" bindLabel="name" bindValue="id" placeholder="Select Main Unit" formControlName="mainUnitId">
+            </ng-select>
+            <div *ngIf="productForm.get('mainUnitId')?.invalid && productForm.get('mainUnitId')?.touched" class="text-danger small">
+              Main unit is required
+            </div>
+          </div>
+          
+          <!-- Sub Units -->
+          <div class="col-md-8">
+            <label class="form-label">Sub Units</label>
+            <div class="card p-3 mb-0 border">
+              <div formArrayName="subUnitDetails">
+                <div *ngFor="let subUnit of subUnitDetailsControls; let i = index" [formGroupName]="i" class="row g-2 mb-2 align-items-center">
+                  <div class="col-md-5">
+                    <div class="input-group">
+                      <span class="input-group-text">1 x {{ selectedMainUnit?.name || 'Main Unit' }} = </span>
+                      <input type="number" class="form-control" formControlName="conversionRate" placeholder="Conversion Rate">
+                    </div>
+                  </div>
+                  <div class="col-md-5">
+                    <ng-select [items]="units" bindLabel="name" bindValue="id" placeholder="Select Sub Unit" formControlName="unitId">
+                    </ng-select>
+                  </div>
+                  <div class="col-md-2 text-end">
+                    <button type="button" class="btn btn-sm btn-danger" (click)="removeSubUnit(i)">
+                      <i class="fa fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="text-center mt-2">
+                  <button type="button" class="btn btn-sm btn-primary" (click)="addSubUnit()">
+                    <i class="fa fa-plus me-1"></i> Add Sub Unit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Other Details Section -->
+    <div class="card mb-3 shadow border-0">
+      <div class="card-header bg-light">
+        <h5 class="mb-0 fw-bold"><i class="fa fa-cog me-2"></i>Product Other Details</h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <!-- Switches -->
+          <div class="col-md-12">
+            <div class="row g-3">
+              <div class="col-md-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="notForSale" formControlName="notForSale">
+                  <label class="form-check-label" for="notForSale">Not for sale</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="manageStock" formControlName="manageStock">
+                  <label class="form-check-label" for="manageStock">Manage stock</label>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="saleAsLeatesPrice" formControlName="saleAsLeatesPrice">
+                  <label class="form-check-label" for="saleAsLeatesPrice">Sale as latest price</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Custom Fields -->
+          <div class="col-md-4">
+            <label for="customField1" class="form-label">Custom Field 1</label>
+            <input type="text" class="form-control" id="customField1" formControlName="customField1" placeholder="Enter custom field 1">
+          </div>
+          
+          <div class="col-md-4">
+            <label for="customField2" class="form-label">Custom Field 2</label>
+            <input type="text" class="form-control" id="customField2" formControlName="customField2" placeholder="Enter custom field 2">
+          </div>
+          
+          <div class="col-md-4">
+            <label for="customField3" class="form-label">Custom Field 3</label>
+            <input type="text" class="form-control" id="customField3" formControlName="customField3" placeholder="Enter custom field 3">
+          </div>
+          
+          <div class="col-md-4">
+            <label for="customField4" class="form-label">Custom Field 4</label>
+            <input type="text" class="form-control" id="customField4" formControlName="customField4" placeholder="Enter custom field 4">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Cost & Prices Section -->
+    <div class="card mb-3 shadow border-0">
+      <div class="card-header bg-light">
+        <h5 class="mb-0 fw-bold"><i class="fa fa-dollar-sign me-2"></i>Default Cost & Prices</h5>
+      </div>
+      <div class="card-body">
+        <div class="row g-3">
+          <!-- Cost -->
+          <div class="col-md-4">
+            <label for="cost" class="form-label">Cost <span class="text-danger">*</span></label>
+            <input type="number" class="form-control" id="cost" formControlName="cost" min="0" step="0.01" (blur)="calculateDefaultPrice()" placeholder="Enter product cost">
+            <div *ngIf="productForm.get('cost')?.invalid && productForm.get('cost')?.touched" class="text-danger small">
+              Cost is required and must be greater than or equal to 0
+            </div>
+          </div>
+          
+          <!-- Margin -->
+          <div class="col-md-4">
+            <label for="margin" class="form-label">Margin (%)</label>
+            <input type="number" class="form-control" id="margin" formControlName="margin" min="0" max="100" step="0.01" (blur)="calculateDefaultPrice()" placeholder="Enter margin percentage">
+            <small class="text-muted">Automatically calculates default price based on cost</small>
+            <div *ngIf="productForm.get('margin')?.invalid && productForm.get('margin')?.touched" class="text-danger small">
+              Margin must be between 0 and 100
+            </div>
+          </div>
+          
+          <!-- Label Price -->
+          <div class="col-md-4">
+            <label for="labelPrice" class="form-label">Label Price <span class="text-danger">*</span></label>
+            <input type="number" class="form-control" id="labelPrice" formControlName="labelPrice" min="0" step="0.01" placeholder="Enter label price">
+            <div *ngIf="productForm.get('labelPrice')?.invalid && productForm.get('labelPrice')?.touched" class="text-danger small">
+              Label price is required and must be greater than or equal to 0
+            </div>
+          </div>
+          
+          <!-- Default Price -->
+          <div class="col-md-4">
+            <label for="defaultPrice" class="form-label">Default Price <span class="text-danger">*</span></label>
+            <input type="number" class="form-control" id="defaultPrice" formControlName="defaultPrice" min="0" step="0.01" placeholder="Enter default price">
+            <div *ngIf="productForm.get('defaultPrice')?.invalid && productForm.get('defaultPrice')?.touched" class="text-danger small">
+              Default price is required and must be greater than or equal to 0
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer bg-light">
+  <button type="button" class="btn btn-secondary" (click)="closeModal()"><i class="fa fa-times me-1"></i>Cancel</button>
+  <button type="button" class="btn btn-primary waves-light waves-effect" (click)="saveProduct()"><i class="fa fa-save me-1"></i>Save Product</button>
+</div>

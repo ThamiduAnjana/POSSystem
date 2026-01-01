@@ -1,10 +1,31 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { 
+  NgbAccordionDirective, 
+  NgbAccordionItem, 
+  NgbAccordionHeader, 
+  NgbAccordionToggle,
+  NgbAccordionBody,
+  NgbAccordionCollapse
+} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-grid-settings',
   templateUrl: './grid-settings.component.html',
-  styleUrls: ['./grid-settings.component.scss']
+  styleUrls: ['./grid-settings.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    NgbAccordionDirective,
+    NgbAccordionItem,
+    NgbAccordionHeader,
+    NgbAccordionToggle,
+    NgbAccordionBody,
+    NgbAccordionCollapse
+  ]
 })
 export class GridSettingsComponent {
 

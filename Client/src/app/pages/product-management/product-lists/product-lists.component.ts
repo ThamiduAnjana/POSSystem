@@ -18,6 +18,7 @@ export class ProductListsComponent implements OnInit {
     title: 'Product Lists Grid Settings',
   };
   modalGridSettingsRef!: any;
+  modalCreateProductRef!: any;
 
   gridData =
     {
@@ -329,5 +330,28 @@ export class ProductListsComponent implements OnInit {
 
   closeGridSettingsModal() {
     this.modalGridSettingsRef.close();
+  }
+
+  openCreateProductModal(modal: any) {
+    this.modalCreateProductRef = this.modalService.open(modal, {
+      size: 'xl',
+      keyboard: false,
+      backdrop: 'static',
+      centered: true
+    });
+
+    // Handle modal result when closed
+    this.modalCreateProductRef.result.then((result: any) => {
+      if (result) {
+        console.log('Product created:', result);
+        // Here you would typically refresh the product list or add the new product to the list
+      }
+    }, (reason: any) => {
+      console.log('Modal dismissed:', reason);
+    });
+  }
+
+  closeCreateProductModal() {
+    this.modalCreateProductRef.close();
   }
 }

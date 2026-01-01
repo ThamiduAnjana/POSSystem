@@ -1,0 +1,207 @@
+<!-- start page title -->
+<app-pagetitle title="Unit Lists" [breadcrumbItems]="breadCrumbItems"></app-pagetitle>
+<!-- end page title -->
+
+<div class="row">
+  <div class="col-12 plr-0">
+
+    <!-- Loading state -->
+    <div *ngIf="isLoading" class="card mb-0">
+      <div class="card-body px-3 py-2">
+        <div class="row">
+          <div class="placeholder-glow">
+            <span class="placeholder col-6"></span>
+            <span class="placeholder col-8"></span>
+            <span class="placeholder col-12"></span>
+            <span class="placeholder col-12"></span>
+          </div>
+          <div class="placeholder-glow">
+            <span class="placeholder col-12"></span>
+            <span class="placeholder col-12"></span>
+            <span class="placeholder col-6"></span>
+            <span class="placeholder col-4"></span>
+          </div>
+          <div class="placeholder-glow mt-5">
+            <span class="placeholder col-6"></span>
+            <span class="placeholder col-8"></span>
+            <span class="placeholder col-12"></span>
+            <span class="placeholder col-12"></span>
+            <span class="placeholder col-12"></span>
+            <span class="placeholder col-12"></span>
+            <span class="placeholder col-12"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading" class="card mb-0">
+      <div class="card-body px-3 py-2">
+        <form class="row gx-3 gy-2 align-items-center">
+          <div class="col-sm-2">
+            <label>Keyword</label>
+            <input type="text" class="form-control" id="specificSizeInputName" placeholder="Enter Keyword">
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-info mt-4 me-2"><i class="fa fa-filter"></i> Apply Filter</button>
+            <button type="button" class="btn btn-secondary mt-4"><i class="fa fa-sync"></i> Reset Filter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading" class="card mb-0 mt-1">
+      <div class="card-body px-3 py-2">
+        <div class="d-flex justify-content-between mb-3">
+          <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group me-2 mb-2 mb-sm-0">
+              <button type="button" class="btn btn-soft-success waves-light waves-effect"><i class="fa fa-file-excel"></i> Export CSV</button>
+              <button type="button" class="btn btn-soft-success waves-light waves-effect"><i class="fa fa-file-pdf"></i> Export PDF</button>
+            </div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button type="button" class="btn btn-outline-warning waves-light waves-effect" (click)="openGridSettingsModal(gridSettingsModal)"><i class="fa fa-cog"></i></button>
+            <button type="button" class="btn btn-outline-dark waves-light waves-effect"><i class="fa fa-file-download"></i> Template CSV</button>
+            <button type="button" class="btn btn-outline-warning waves-light waves-effect"><i class="fa fa-file-excel"></i> Import CSV</button>
+            <button type="button" class="btn btn-primary float-end" (click)="openCreateUnitsModal(createUnitModal)"><i class="fa fa-plus"></i> Add Units</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-sm ">
+            <thead class="bg-gray">
+            <tr>
+              <th class="text-center">#</th>
+              <ng-container *ngFor="let grid_header of gridData.grid_header">
+                <th [ngClass]="grid_header.class_list">{{ grid_header.name}}</th>
+              </ng-container>
+              <th class="text-end">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let grid_data of gridData.grid_data">
+              <td class="align-middle">
+                <div class="btn-group btn-group-sm d-flex justify-content-center" role="group" ngbDropdown display="dynamic" container="body">
+                  <button type="button" class="btn btn-outline-light" data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                  <div class="dropdown-menu" ngbDropdownMenu>
+                    <button type="button" class="dropdown-item"><i class="fa fa-eye w-25x text-primary"></i> View</button>
+                    <button type="button" class="dropdown-item"><i class="fa fa-copy w-25x text-warning"></i> Copy</button>
+                    <button type="button" class="dropdown-item"><i class="fa fa-edit w-25x text-success"></i> Update</button>
+                    <div class="dropdown-divider"></div>
+                    <button type="button" class="dropdown-item"><i class="fa fa-trash w-25x text-danger"></i> Delete</button>
+                  </div>
+                </div>
+              </td>
+              <ng-container *ngFor="let row of grid_data">
+                <td *ngIf="row.column_type == 'image'" class="align-middle" [ngClass]="row.class_list">
+                  <div class="table-img">
+                    <img class="img-cover" *ngIf="row.value != null" src="{{ row.value }}">
+                    <img class="img-cover" *ngIf="row.value === null" src="assets/images/noimage-lrg.png">
+                  </div>
+                </td>
+                <td *ngIf="row.column_type === 'text'" class="align-middle text-start" [ngClass]="row.class_list">
+                  <ng-container *ngIf="row.value && row.value !== ''; else naTextTemplate">
+                    <a *ngIf="row.is_link; else textDisplay" href="javascript:void(0)">
+                      <i class="fas fa-hand-point-up pe-1"></i>
+                      {{ row.value | sliceText: 10 }}
+                    </a>
+                    <ng-template #textDisplay>
+                      <span class="text-truncate">{{ row.value | sliceText: 10 }}</span>
+                    </ng-template>
+                  </ng-container>
+
+                  <ng-template #naTextTemplate>
+                    <a *ngIf="row.is_link" href="javascript:void(0)">
+                      <i class="fas fa-hand-point-up pe-1"></i>
+                      N/A
+                    </a>
+                    <span *ngIf="!row.is_link" class="text-truncate">N/A</span>
+                  </ng-template>
+                </td>
+                <td *ngIf="row.column_type == 'currency'" class="align-middle text-end" [ngClass]="row.class_list">
+                  <ng-container *ngIf="row.value && row.value !== ''; else naCurrencyTemplate">
+                    <a *ngIf="row.is_link; else currencyDisplay" href="javascript:void(0)">
+                      <i class="fas fa-hand-point-up pe-1"></i>
+                      {{ row.value | currency: 'Rs.':'Rs.' }}
+                    </a>
+                    <ng-template #currencyDisplay>
+                      <span class="text-truncate">{{ row.value | currency: 'Rs.':'Rs.' }}</span>
+                    </ng-template>
+                  </ng-container>
+
+                  <ng-template #naCurrencyTemplate>
+                    <a *ngIf="row.is_link" href="javascript:void(0)">
+                      <i class="fas fa-hand-point-up pe-1"></i>
+                      {{ 0 | currency: 'Rs.':'Rs.' }}
+                    </a>
+                    <span *ngIf="!row.is_link" class="text-truncate">{{ 0 | currency: 'Rs.':'Rs.' }}</span>
+                  </ng-template>
+                </td>
+                <td *ngIf="row.column_type == 'number'" class="align-middle text-end" [ngClass]="row.class_list">
+                  <ng-container *ngIf="row.value && row.value !== ''; else naNumberTemplate">
+                    <a *ngIf="row.is_link; else numberDisplay" href="javascript:void(0)">
+                      <i class="fas fa-hand-point-up pe-1"></i>
+                      {{ row.value | number:'1.2-2' }}
+                    </a>
+                    <ng-template #numberDisplay>
+                      <span class="text-truncate">{{ row.value | number:'1.2-2' }}</span>
+                    </ng-template>
+                  </ng-container>
+
+                  <ng-template #naNumberTemplate>
+                    <a *ngIf="row.is_link" href="javascript:void(0)">
+                      <i class="fas fa-hand-point-up pe-1"></i>
+                      {{ 0 | number:'1.2-2' }}
+                    </a>
+                    <span *ngIf="!row.is_link" class="text-truncate">{{ 0 | number:'1.2-2' }}</span>
+                  </ng-template>
+                </td>
+                <td *ngIf="row.column_type == 'boolean'" class="align-middle w-7" [ngClass]="row.class_list">
+                  <span *ngIf="row.value" class="badge badge-soft-success p-2 w-70">Active</span>
+                  <span *ngIf="!row.value" class="badge badge-soft-danger p-2 w-70">Inactive</span>
+                </td>
+                <td *ngIf="row.column_type == 'status'" class="align-middle" [ngClass]="row.class_list">
+                  <span class="badge p-2 w-70" [ngStyle]="{'background-color': row.color_code}">{{ row.value }}</span>
+                </td>
+              </ng-container>
+              <td>
+                <div class="input-group justify-content-end">
+                  <button type="button" class="btn btn-outline-primary waves-light waves-effect"><i class="fa fa-eye"></i></button>
+                  <button type="button" class="btn btn-outline-warning waves-light waves-effect"><i class="fa fa-copy"></i></button>
+                  <button type="button" class="btn btn-outline-success waves-light waves-effect"><i class="fa fa-edit"></i></button>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+          <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center justify-content-between gap-2">
+              <span class="fs-12">Page Size: </span>
+              <select [(ngModel)]="pageSize">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+              </select>
+              <span class="fs-12">{{ page | paginationText: pageSize:totalUnits }}</span>
+            </div>
+            <div class="d-flex align-items-center">
+              <ngb-pagination (pageChange)="onPageChange($event)"  [collectionSize]="totalUnits" [(page)]="page" [pageSize]="pageSize" [size]="'sm'"
+                              [maxSize]="5" [rotate]="true" [boundaryLinks]="true" class="pagination"></ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #gridSettingsModal let-modal>
+  <app-grid-settings [gridFrom]="gridFrom" (closeEvent)="closeGridSettingsModal()"></app-grid-settings>
+</ng-template>
+
+<ng-template #createUnitModal let-modal>
+</ng-template>
