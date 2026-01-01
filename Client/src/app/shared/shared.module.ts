@@ -6,7 +6,7 @@ import { PagetitleComponent } from './pagetitle/pagetitle.component';
 import { PosProductsViewComponent } from './components/pos-products-view/pos-products-view.component';
 import { PosInvoicePaymentComponent } from './components/pos-invoice-payment/pos-invoice-payment.component';
 import { NgSelectModule } from "@ng-select/ng-select";
-import { NgbAccordion, NgbInputDatepicker, NgbPanel, NgbPanelContent, NgbPanelTitle } from "@ng-bootstrap/ng-bootstrap";
+import { NgbAccordionModule, NgbInputDatepicker } from "@ng-bootstrap/ng-bootstrap";
 import { PosProductsUpdateComponent } from './components/pos-products-update/pos-products-update.component';
 import { GridSettingsComponent } from './components/grid-settings/grid-settings.component';
 import { CreateGridViewComponent } from './components/create-grid-view/create-grid-view.component';
@@ -29,11 +29,9 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
 
 @NgModule({
   declarations: [
-    PagetitleComponent,
     PosProductsViewComponent,
     PosInvoicePaymentComponent,
     PosProductsUpdateComponent,
-    GridSettingsComponent,
     CreateGridViewComponent,
     CreateProductsComponent
   ],
@@ -42,11 +40,10 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     ReactiveFormsModule,
     NgSelectModule,
     NgbInputDatepicker,
-    NgbAccordion,
-    NgbPanel,
-    NgbPanelTitle,
-    NgbPanelContent,
-    DropzoneModule
+    NgbAccordionModule,
+    DropzoneModule,
+    PagetitleComponent,
+    GridSettingsComponent
   ],
   providers: [
     {
@@ -55,6 +52,9 @@ const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
     }
   ],
   exports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NgSelectModule,
     PagetitleComponent, 
     PosProductsViewComponent, 
     PosInvoicePaymentComponent, 
